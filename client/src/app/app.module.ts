@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AddPassengerComponent } from './components/add-passenger/add-passenger.component';
 import { PassengerDetailsComponent } from './components/passenger-details/passenger-details.component';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PassengerListComponent } from './components/passenger-list/passenger-li
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

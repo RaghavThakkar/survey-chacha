@@ -10,8 +10,9 @@ const baseUrl = 'http://localhost:8080/api/passengers';
 export class PassengerService {
 
   constructor(private http: HttpClient) { }
-  getAll() {
-    return this.http.get(baseUrl);
+  
+  getAll(): Observable<Passenger[]> {
+    return this.http.get<Passenger[]>(baseUrl);
   }
 
   get(id: any): Observable<Passenger> {
