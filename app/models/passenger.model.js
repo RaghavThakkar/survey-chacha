@@ -9,7 +9,10 @@ module.exports = mongoose => {
         date: String,
         gender: String
       },
-      { timestamps: true }
+      { 
+          timestamps: true,
+          collection: "passengers"
+      }
     );
   
     schema.method("toJSON", function() {

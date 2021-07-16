@@ -12,7 +12,7 @@ app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
 
-const db = require("./app/models");
+const db = require("./app/models/index");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
