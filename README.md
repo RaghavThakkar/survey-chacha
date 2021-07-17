@@ -1,5 +1,3 @@
-# COMP229-M2021-MidTerm Test (TypeScript version)
-
-## Welcome to the MidTerm Project - the Favourite Book List App
-
+# Air-International 
+Book flight tickets.
 please use **`npm install`** to install project dependencies
