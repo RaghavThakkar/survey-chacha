@@ -1,43 +1,53 @@
-const express = require("express");
-const cors = require("cors");
-
-const app = express();
-
-var corsOptions = {
-  origin: "http://localhost:8081"
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(express.json());
-
-const db = require("./app/models/index");
-db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Connected to the database!");
-  })
-  .catch(err => {
-    console.log("Cannot connect to the database!", err);
-    process.exit();
-  });
-
-  require("./app/routes/passenger.routes")(app);
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to flight booking application." });
-});
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+const app_1 = __importDefault(require("./Server/Config/app"));
+const debug_1 = __importDefault(require("debug"));
+debug_1.default('comp308-m2021-midterm:server');
+const http_1 = __importDefault(require("http"));
+let port = normalizePort(process.env.PORT || '3000');
+app_1.default.set('port', port);
+let server = http_1.default.createServer(app_1.default);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+function normalizePort(val) {
+    let port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
+}
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+    let bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+function onListening() {
+    let addr = server.address();
+    let bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug_1.default('Listening on ' + bind);
+}
+//# sourceMappingURL=server.js.map
