@@ -1,0 +1,46 @@
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <h3>Flights</h3>
+
+                <!-- Template Row -->
+                <% for (let count=0; count < flights.length; count++) { %>
+                    <div class="card shadow-sm p-2 mb-2 bg-white rounded">
+                        <div class="card-header">
+                            <%=flights[count].Airline%>
+                        </div>
+                        <div class="card-body">
+                            <div class="flight-details">
+                                <img src="/Assets/images/<%=flights[count].Logo%>" alt="Logo" style="width: 30px; height: 30px;" />
+                                <div>
+                                    <%=flights[count].AirlingNumber%>
+                                </div>
+                                <div>
+                                    <%=flights[count].FromTime%> (<%=flights[count].From%>)
+                                </div>
+                                <div>--></div>
+                                <div>
+                                    <%=flights[count].ToTime%>
+                                        (<%=flights[count].To%>)
+                                </div>
+                                <div>
+                                    $ <%=flights[count].Price%>
+                                </div>
+                                <div> <a href="/flights/book/<%=flights[count].id%>"
+                                        class="btn btn-primary d-flex align-items-center">Select</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <% } %>
+
+
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs'); %>

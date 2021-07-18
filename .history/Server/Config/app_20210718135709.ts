@@ -44,7 +44,6 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 // route redirects
 app.use('/', index);
-app.use('/flights', flights);
 
 
 // catch 404 and forward to error handler

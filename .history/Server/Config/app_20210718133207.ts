@@ -24,7 +24,6 @@ db.once("open", function () {
 
 // define routers
 import index from '../Routes/index'; // top level routes
-import flights from '../Routes/flight';
 
 // Express Web App Configuration
 const app = express();
@@ -44,7 +43,6 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 // route redirects
 app.use('/', index);
-app.use('/flights', flights);
 
 
 // catch 404 and forward to error handler
