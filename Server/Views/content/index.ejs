@@ -1,1 +1,32 @@
-Air International
+<%- include('../partials/header.ejs'); %>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <img src="/Assets/images/logo.png" alt="Logo" style="width: 500px; height: 100px;" />
+
+    </div>
+    <div class="row d-flex justify-content-center">
+      <lottie-player src="https://assets7.lottiefiles.com/private_files/lf30_dy2xdidy.json" background="transparent"
+        speed="1" style="width: 720px; height: 400px;" loop autoplay></lottie-player>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <form>
+
+            <div class="d-flex justify-content-around margin-div-right">
+              <input type="text" placeholder="From" class="form-control ">
+              <input type="text" placeholder="To" class="form-control">
+              <input type="date" value="Departure Date" class="form-control">
+              <a href="/flights" class="btn btn-primary d-flex align-items-center"><i
+                  class="fa fa-search"></i>Search</a>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <%- include('../partials/footer.ejs'); %>
