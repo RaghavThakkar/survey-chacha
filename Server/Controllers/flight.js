@@ -63,16 +63,15 @@ function GetFlightsDetailsById(req, res, next) {
 }
 exports.GetFlightsDetailsById = GetFlightsDetailsById;
 function GetTicketList(req, res, next) {
-    let id = req.params['id'];
-    flights_1.default.findById(id, {}, {}, (err, item) => {
+    tickets_1.default.find((err, tickets) => {
         if (err) {
             console.error(err);
             res.end(err);
         }
-        res.render('flights/details', {
-            title: 'Passanger Details',
-            page: 'details',
-            flight: item
+        res.render('flights/ticket', {
+            title: 'Ticket List',
+            page: 'ticket-list',
+            tickets: tickets
         });
     });
 }

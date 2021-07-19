@@ -79,17 +79,16 @@ export function GetFlightsDetailsById(req: Request, res: Response, next: NextFun
 }
 
 export function GetTicketList(req: Request, res: Response, next: NextFunction): void {
-    let id = req.params['id'];
-    // db.clothing.remove({"_id: id"})
-    Flight.findById(id, {}, {}, (err, item) => {
+
+    Ticket.find((err, tickets) => {
         if (err) {
             console.error(err);
             res.end(err);
         }
-        res.render('flights/details', {
-            title: 'Passanger Details',
-            page: 'details',
-            flight: item
+        res.render('flights/ticket', {
+            title: 'Ticket List',
+            page: 'ticket-list',
+            tickets: tickets
         });
     });
 }
