@@ -10,6 +10,7 @@ const flight_1 = require("../Controllers/flight");
 const flights_1 = __importDefault(require("../Models/flights"));
 const tickets_1 = __importDefault(require("../Models/tickets"));
 router.get('/', flight_1.DisplayFlight);
+router.get('/ticket/delete/:id', flight_1.ProcessTicketDelete);
 router.get('/book/:id', (req, res, next) => {
     let id = req.params['id'];
     flights_1.default.findById(id, {}, {}, (err, item) => {

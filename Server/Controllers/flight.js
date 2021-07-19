@@ -3,8 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
+exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
 const flights_1 = __importDefault(require("../Models/flights"));
+const tickets_1 = __importDefault(require("../Models/tickets"));
 function DisplayFlight(req, res, next) {
     flights_1.default.find({}, null, { sort: { Price: 1 } }, function (err, flightList) {
         if (err) {
@@ -35,4 +36,15 @@ function ProcessFlightAdd(req, res, next) {
     });
 }
 exports.ProcessFlightAdd = ProcessFlightAdd;
+function ProcessTicketDelete(req, res, next) {
+    let id = req.params.id;
+    tickets_1.default.remove({ _id: id }, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect('/flights/ticket-list');
+    });
+}
+exports.ProcessTicketDelete = ProcessTicketDelete;
 //# sourceMappingURL=flight.js.map

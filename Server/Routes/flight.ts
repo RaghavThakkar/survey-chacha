@@ -4,12 +4,13 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-import { DisplayFlight, ProcessFlightAdd } from '../Controllers/flight';
+import { DisplayFlight, ProcessFlightAdd, ProcessTicketDelete } from '../Controllers/flight';
 import Flight from '../Models/flights';
 import Ticket from '../Models/tickets';
 
 /* GET home page. wildcard */
 router.get('/', DisplayFlight);
+router.get('/ticket/delete/:id', ProcessTicketDelete);
 
 //router.get('/add', ProcessFlightAdd);
 router.get('/book/:id', (req, res, next) => {

@@ -1,0 +1,53 @@
+<%- include('../partials/header.ejs'); %>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <h3 class="mt-2">Booked Ticket </h3>
+       
+        <div class="table">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                
+                <th class="text-center">Ticket Number</th>
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Template Row -->
+              <% for (let count=0; count < tickets.length; count++) { %>
+                <tr>
+                  <td>
+                    <%= tickets[count].id %>
+                  </td>
+                  <td class="text-center"><%= tickets[count].FirstName %>
+                  </td>
+                  <td class="text-center">
+                    <%= tickets[count].LastName %>
+                  </td>
+
+
+                
+                  <td class="text-center"><a href="/flights/ticket/update/<%=tickets[count].id%>" class="btn btn-primary btn-sm edit"><i
+                        class="fas fa-edit fa-sm"></i> Edit</a></td>
+
+              
+
+                 
+                  <td class="text-center"><a href="/flights/ticket/delete/<%=tickets[count].id%>"
+                      class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</a></td>
+
+                 
+                </tr>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer.ejs'); %>

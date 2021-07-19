@@ -45,3 +45,18 @@ export function ProcessFlightAdd(req: Request, res: Response, next: NextFunction
         res.redirect('/');
     });
 }
+
+
+export function ProcessTicketDelete(req: Request, res: Response, next: NextFunction): void {
+    let id = req.params.id;
+
+    // db.clothing.remove({"_id: id"})
+    Ticket.remove({ _id: id }, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+
+        res.redirect('/flights/ticket-list');
+    });
+}
