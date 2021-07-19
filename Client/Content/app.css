@@ -65,8 +65,9 @@ a {
     align-items: center;
 }
 
-.jumbotron {
-    background-color: #d7d8d8;
+.jumbotron 
+{
+    background-color: #cccfcf;
     display: flex;
     justify-content: space-around;
 }
