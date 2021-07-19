@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
+exports.UpdatePassangerDetails = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
 const flights_1 = __importDefault(require("../Models/flights"));
 const tickets_1 = __importDefault(require("../Models/tickets"));
 function DisplayFlight(req, res, next) {
@@ -47,4 +47,110 @@ function ProcessTicketDelete(req, res, next) {
     });
 }
 exports.ProcessTicketDelete = ProcessTicketDelete;
+function GetFlightsDetailsById(req, res, next) {
+    let id = req.params['id'];
+    flights_1.default.findById(id, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.render('flights/details', {
+            title: 'Passanger Details',
+            page: 'details',
+            flight: item
+        });
+    });
+}
+exports.GetFlightsDetailsById = GetFlightsDetailsById;
+function GetTicketList(req, res, next) {
+    let id = req.params['id'];
+    flights_1.default.findById(id, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.render('flights/details', {
+            title: 'Passanger Details',
+            page: 'details',
+            flight: item
+        });
+    });
+}
+exports.GetTicketList = GetTicketList;
+function AddPassanger(req, res, next) {
+    let id = req.params['id'];
+    flights_1.default.findById(id, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        let newTicket = new tickets_1.default({
+            "FirstName": req.body.firstName,
+            "LastName": req.body.lastName,
+            "Gender": req.body.gender,
+            "Email": req.body.email,
+            "PhoneNumber": req.body.phoneNumber,
+            "DOB": req.body.dob,
+            "Flight": item
+        });
+        tickets_1.default.create(newTicket, (err) => {
+            if (err) {
+                console.error(err);
+                res.end(err);
+            }
+            res.redirect('/flights/ticket-list');
+        });
+    });
+}
+exports.AddPassanger = AddPassanger;
+function GetPassngerDetailsId(req, res, next) {
+    let id = req.params['id'];
+    tickets_1.default.findById(id, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        let ticket = item.toObject();
+        flights_1.default.findById(ticket.id, {}, {}, (err, fitem) => {
+            if (err) {
+                console.error(err);
+                res.end(err);
+            }
+            res.render('flights/details', {
+                title: 'Passanger Details',
+                page: 'details',
+                flight: fitem
+            });
+        });
+    });
+}
+exports.GetPassngerDetailsId = GetPassngerDetailsId;
+function UpdatePassangerDetails(req, res, next) {
+    let fid = req.params['fid'];
+    let id = req.params['id'];
+    flights_1.default.findById(fid, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        let updateTicket = new tickets_1.default({
+            "_id": id,
+            "FirstName": req.body.firstName,
+            "LastName": req.body.lastName,
+            "Gender": req.body.gender,
+            "Email": req.body.email,
+            "PhoneNumber": req.body.phoneNumber,
+            "DOB": req.body.dob,
+            "Flight": item
+        });
+        tickets_1.default.updateOne({ _id: id }, updateTicket, {}, (err) => {
+            if (err) {
+                console.error(err);
+                res.end(err);
+            }
+            res.redirect('/flights/ticket-list');
+        });
+    });
+}
+exports.UpdatePassangerDetails = UpdatePassangerDetails;
 //# sourceMappingURL=flight.js.map
