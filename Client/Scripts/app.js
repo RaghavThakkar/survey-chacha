@@ -4,7 +4,7 @@
         $("a.delete").on("click", function (event) {
             if (!confirm("Are you sure?")) {
                 event.preventDefault();
-                location.href = '/books';
+                location.href = '/flights/ticket-list';
             }
         });
     }
