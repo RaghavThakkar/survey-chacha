@@ -14,10 +14,19 @@
           <form>
 
             <div class="d-flex justify-content-around margin-div-right">
-              <input type="text" placeholder="From" class="form-control ">
-              <input type="text" placeholder="To" class="form-control">
-              <input type="date" value="Departure Date" class="form-control">
-              <a href="/flights" class="btn btn-primary d-flex align-items-center"><i
+
+              <select class="form-select margin-div-right" aria-label="Default select example">
+              <option selected>From</option>
+              <option value="1">Toronto (YYZ)</option>
+            </select>
+
+              <select class="form-select margin-div-right" aria-label="Default select example">
+              <option selected>To</option>
+              <option value="1">New York (JFK)</option>
+            </select>
+
+              <input type="date" value="Departure Date" class="form-control margin-div-right">
+              <a href="/flights" class="btn btn-primary d-flex align-items-center margin-div-right"><i
                   class="fa fa-search"></i>Search</a>
 
             </div>
