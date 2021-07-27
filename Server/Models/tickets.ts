@@ -11,7 +11,10 @@ const TicketSchema = new Schema
     Email: String,
     PhoneNumber: String,
     DOB: String,
-    Flight: [{ type: Schema.Types.ObjectId, ref: 'Flight' }]
+    Flight: {
+      type: Schema.Types.ObjectId,
+      ref: 'Flight'
+    }
   },
     {
       collection: "tickets"

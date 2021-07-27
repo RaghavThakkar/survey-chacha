@@ -11,7 +11,7 @@ import mongoose, { mongo } from 'mongoose';
 // URI
 import * as DBConfig from './db';
 
-mongoose.connect(process.env.URI || DBConfig.RemoteURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.URI || DBConfig.LocalURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection; // alias for the mongoose connection
 db.on("error", function () {
@@ -63,4 +63,4 @@ app.use(function (err: createError.HttpError, req: express.Request, res: express
   res.render('error');
 });
 
-//module.exports = app;
+module.exports = app;

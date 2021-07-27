@@ -1,11 +1,23 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePassangerDetails = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
+exports.UpdatePassangerDetails = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.createData = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
 const flights_1 = __importDefault(require("../Models/flights"));
 const tickets_1 = __importDefault(require("../Models/tickets"));
+const Survey_1 = __importDefault(require("../Models/Survey"));
+const Option_1 = __importDefault(require("../Models/Option"));
+const questions_1 = __importDefault(require("../Models/questions"));
 function DisplayFlight(req, res, next) {
     flights_1.default.find({}, null, { sort: { Price: 1 } }, function (err, flightList) {
         if (err) {
@@ -48,31 +60,96 @@ function ProcessTicketDelete(req, res, next) {
 }
 exports.ProcessTicketDelete = ProcessTicketDelete;
 function GetFlightsDetailsById(req, res, next) {
-    let id = req.params['id'];
-    flights_1.default.findById(id, {}, {}, (err, item) => {
-        if (err) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let id = req.params['id'];
+        try {
+            const item = flights_1.default.findById(id).exec();
+            res.render('flights/details', {
+                title: 'Passanger Details',
+                page: 'details',
+                flight: item
+            });
+        }
+        catch (err) {
             console.error(err);
             res.end(err);
         }
-        res.render('flights/details', {
-            title: 'Passanger Details',
-            page: 'details',
-            flight: item
-        });
     });
 }
 exports.GetFlightsDetailsById = GetFlightsDetailsById;
-function GetTicketList(req, res, next) {
-    tickets_1.default.find((err, tickets) => {
-        if (err) {
+function createData(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const option1 = new Option_1.default({
+                option: "BMW"
+            });
+            const option2 = new Option_1.default({
+                option: "Tesla"
+            });
+            const option3 = new Option_1.default({
+                option: "Honda"
+            });
+            const option4 = new Option_1.default({
+                option: "Toyota"
+            });
+            const newO1 = yield Option_1.default.create(option1);
+            const newO2 = yield Option_1.default.create(option2);
+            const newO3 = yield Option_1.default.create(option3);
+            const newO4 = yield Option_1.default.create(option4);
+            const questionList = new questions_1.default({
+                question: "What's you favourite car?",
+                optionsList: [newO1, newO2, newO3, newO4],
+                type: "1"
+            });
+            const questionList1 = new questions_1.default({
+                question: "What's you favourite car model?",
+                optionsList: [newO1, newO2, newO3, newO4],
+                type: "2"
+            });
+            const newQuestions = yield questions_1.default.create(questionList);
+            const newQuestions2 = yield questions_1.default.create(questionList1);
+            const survey = new Survey_1.default({
+                questions: [newQuestions, newQuestions2],
+                active: true,
+                userId: 0
+            });
+            const newSurevy = yield Survey_1.default.create(survey);
+            const sl = yield Survey_1.default.find().populate("questions").exec();
+            res.render('flights/ticket', {
+                title: 'Ticket List',
+                page: 'ticket-list',
+                sl: sl
+            });
+        }
+        catch (err) {
             console.error(err);
             res.end(err);
         }
-        res.render('flights/ticket', {
-            title: 'Ticket List',
-            page: 'ticket-list',
-            tickets: tickets
-        });
+    });
+}
+exports.createData = createData;
+function GetTicketList(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const sl = yield Survey_1.default.find().populate({
+                path: 'questions',
+                model: 'Question',
+                populate: {
+                    path: 'optionsList',
+                    model: 'Option'
+                }
+            }).exec();
+            console.log(sl);
+            res.render('flights/ticket', {
+                title: 'Ticket List',
+                page: 'ticket-list',
+                sl: sl
+            });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
     });
 }
 exports.GetTicketList = GetTicketList;
@@ -152,4 +229,4 @@ function UpdatePassangerDetails(req, res, next) {
     });
 }
 exports.UpdatePassangerDetails = UpdatePassangerDetails;
-//# sourceMappingURL=flight.js.map
+//# sourceMappingURL=flightController.js.map

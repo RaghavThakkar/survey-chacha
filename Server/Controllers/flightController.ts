@@ -3,6 +3,9 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import Flight from '../Models/flights';
 import Ticket from '../Models/tickets';
+import Survey from '../Models/Survey';
+import Option from '../Models/Option';
+import Question from '../Models/questions';
 
 export function DisplayFlight(req: Request, res: Response, next: NextFunction): void {
 
@@ -62,35 +65,162 @@ export function ProcessTicketDelete(req: Request, res: Response, next: NextFunct
 }
 
 
-export function GetFlightsDetailsById(req: Request, res: Response, next: NextFunction): void {
+export async function GetFlightsDetailsById(req: Request, res: Response, next: NextFunction): void {
     let id = req.params['id'];
-    // db.clothing.remove({"_id: id"})
-    Flight.findById(id, {}, {}, (err, item) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
+
+    try {
+
+        const item = Flight.findById(id).exec();
         res.render('flights/details', {
             title: 'Passanger Details',
             page: 'details',
             flight: item
         });
-    });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
 }
+export async function createData(req: Request, res: Response, next: NextFunction) {
 
-export function GetTicketList(req: Request, res: Response, next: NextFunction): void {
+    try {
 
-    Ticket.find((err, tickets) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
+        const option1 = new Option({
+            option: "BMW"
+        });
+
+
+        const option2 = new Option({
+            option: "Tesla"
+        });
+
+        const option3 = new Option({
+            option: "Honda"
+        });
+
+        const option4 = new Option({
+            option: "Toyota"
+        });
+        const newO1 = await Option.create(option1);
+        const newO2 = await Option.create(option2);
+        const newO3 = await Option.create(option3);
+        const newO4 = await Option.create(option4);
+
+
+        const questionList = new Question({
+            question: "What's you favourite car?",
+            optionsList: [newO1, newO2, newO3, newO4],
+            type: "1"
+        });
+
+        const questionList1 = new Question({
+            question: "What's you favourite car model?",
+            optionsList: [newO1, newO2, newO3, newO4],
+            type: "2"
+
+        });
+
+        const newQuestions = await Question.create(questionList);
+        const newQuestions2 = await Question.create(questionList1);
+        const survey = new Survey({
+            questions: [newQuestions, newQuestions2],
+            active: true,
+            userId: 0
+        });
+        const newSurevy = await Survey.create(survey);
+
+
+
+        const sl = await Survey.find().populate("questions").exec();
+
+
         res.render('flights/ticket', {
             title: 'Ticket List',
             page: 'ticket-list',
-            tickets: tickets
+            sl: sl
         });
-    });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+}
+export async function GetTicketList(req: Request, res: Response, next: NextFunction) {
+
+    try {
+
+        // const option1 = new Option({
+        //     option: "BMW"
+        // });
+
+
+        // const option2 = new Option({
+        //     option: "Tesla"
+        // });
+
+        // const option3 = new Option({
+        //     option: "Honda"
+        // });
+
+        // const option4 = new Option({
+        //     option: "Toyota"
+        // });
+        // const newO1 = await Option.create(option1);
+        // const newO2 = await Option.create(option2);
+        // const newO3 = await Option.create(option3);
+        // const newO4 = await Option.create(option4);
+
+
+        // const questionList = new Question({
+        //     question: "What's you favourite car?",
+        //     optionsList: [newO1, newO2, newO3, newO4],
+        //     type: "1"
+        // });
+
+        // const questionList1 = new Question({
+        //     question: "What's you favourite car model?",
+        //     options: [newO1, newO2, newO3, newO4],
+        //     type: "2"
+
+        // });
+
+        // const newQuestions = await Question.create(questionList);
+        // const newQuestions2 = await Question.create(questionList1);
+        // const survey = new Survey({
+        //     questions: [newQuestions, newQuestions2],
+        //     active: true,
+        //     userId: 0
+        // });
+        // const newSurevy = await Survey.create(survey);
+
+
+
+        const sl = await Survey.find().populate({
+            path: 'questions',
+            model: 'Question',
+            populate: {
+                path: 'optionsList',
+                model: 'Option'
+            }
+        }).exec();
+
+        console.log(sl);
+
+        res.render('flights/ticket', {
+            title: 'Ticket List',
+            page: 'ticket-list',
+
+            sl: sl
+        });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
 }
 
 export function AddPassanger(req: Request, res: Response, next: NextFunction): void {

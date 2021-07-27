@@ -18,31 +18,21 @@
             </thead>
             <tbody>
               <!-- Template Row -->
-              <% for (let count=0; count < tickets.length; count++) { %>
-                <tr>
+              <% for (let count=0; count < sl.length; count++) { %>
+                <% for (let j=0; j < sl[count].questions.length; j++) { %>
+                 <tr>
                   <td>
-                    <%= tickets[count].id %>
-                  </td>
-                  <td class="text-center"><%= tickets[count].FirstName %>
-                  </td>
-                  <td class="text-center">
-                    <%= tickets[count].LastName %>
-                  </td>
-
-
-                
-                  <td class="text-center"><a href="/flights/ticket/update/<%=tickets[count].id%>" class="btn btn-primary btn-sm edit"><i
-                        class="fas fa-edit fa-sm"></i> Edit</a></td>
-
-              
-
+                 <%=   sl[count].questions[j].question%>
+                  <% for (let k=0; k < sl[count].questions[j].optionsList.length; k++) { %>
                  
-                  <td class="text-center"><a href="/flights/ticket/delete/<%=tickets[count].id%>"
-                      class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</a></td>
-
-                 
-                </tr>
+                      <%=   sl[count].questions[j].optionsList[k].option%>
+                     
                 <% } %>
+                 </td>
+                       </tr>
+                <% } %>
+                <% } %>
+              
             </tbody>
           </table>
         </div>
