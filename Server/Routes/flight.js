@@ -16,5 +16,6 @@ router.get('/ticket-list', flightController_1.GetTicketList);
 router.get('/create', flightController_1.createData);
 router.get('/flights/ticket/:id', flightController_1.GetPassngerDetailsId);
 router.get('/flights/cs', flightController_1.CreateSurvey);
+router.post('/cs', flightController_1.CreateOrUpdateSurvey);
 router.post('/flights/:fid/ticket/:id', flightController_1.UpdatePassangerDetails);
 //# sourceMappingURL=flight.js.map
