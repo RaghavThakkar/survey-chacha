@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePassangerDetails = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.createData = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
+exports.UpdatePassangerDetails = exports.CreateSurvey = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.createData = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
 const flights_1 = __importDefault(require("../Models/flights"));
 const tickets_1 = __importDefault(require("../Models/tickets"));
 const Survey_1 = __importDefault(require("../Models/Survey"));
@@ -63,7 +63,7 @@ function GetFlightsDetailsById(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let id = req.params['id'];
         try {
-            const item = flights_1.default.findById(id).exec();
+            const item = yield flights_1.default.findById(id).exec();
             res.render('flights/details', {
                 title: 'Passanger Details',
                 page: 'details',
@@ -111,7 +111,11 @@ function createData(req, res, next) {
             const survey = new Survey_1.default({
                 questions: [newQuestions, newQuestions2],
                 active: true,
-                userId: 0
+                userId: 0,
+                startDate: new Date(),
+                endDate: new Date(+new Date() + 7 * 24 * 60 * 60 * 1000),
+                title: "title",
+                description: "magic"
             });
             const newSurevy = yield Survey_1.default.create(survey);
             const sl = yield Survey_1.default.find().populate("questions").exec();
@@ -136,7 +140,7 @@ function GetTicketList(req, res, next) {
                 model: 'Question',
                 populate: {
                     path: 'optionsList',
-                    model: 'Option'
+                    model: 'Option',
                 }
             }).exec();
             console.log(sl);
@@ -201,6 +205,14 @@ function GetPassngerDetailsId(req, res, next) {
     });
 }
 exports.GetPassngerDetailsId = GetPassngerDetailsId;
+function CreateSurvey(req, res, next) {
+    console.log("CreateSurvey");
+    res.render('flights/csupdate', {
+        title: 'Take Survey',
+        page: 'details',
+    });
+}
+exports.CreateSurvey = CreateSurvey;
 function UpdatePassangerDetails(req, res, next) {
     let fid = req.params['fid'];
     let id = req.params['id'];

@@ -11,7 +11,28 @@ const SurveySchema = new Schema
             ref: 'Question'
         }],
         active: Boolean,
-        userId: Number
+
+        userId: {
+            type: Number,
+            default: 0
+        },
+        startDate: {
+            type: Date,
+            default: Date.now
+        },
+        endDate: {
+            type: Date,
+            default: new Date(+new Date() + 7 * 24 * 60 * 60 * 1000)
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+
+        description: {
+            type: String,
+            default: ''
+        }
     },
         {
             collection: 'surveys'

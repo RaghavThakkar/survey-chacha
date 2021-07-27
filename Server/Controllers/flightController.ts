@@ -65,12 +65,12 @@ export function ProcessTicketDelete(req: Request, res: Response, next: NextFunct
 }
 
 
-export async function GetFlightsDetailsById(req: Request, res: Response, next: NextFunction): void {
+export async function GetFlightsDetailsById(req: Request, res: Response, next: NextFunction) {
     let id = req.params['id'];
 
     try {
 
-        const item = Flight.findById(id).exec();
+        const item = await Flight.findById(id).exec();
         res.render('flights/details', {
             title: 'Passanger Details',
             page: 'details',
@@ -127,7 +127,11 @@ export async function createData(req: Request, res: Response, next: NextFunction
         const survey = new Survey({
             questions: [newQuestions, newQuestions2],
             active: true,
-            userId: 0
+            userId: 0,
+            startDate: new Date(),
+            endDate: new Date(+new Date() + 7 * 24 * 60 * 60 * 1000),
+            title: "title",
+            description: "magic"
         });
         const newSurevy = await Survey.create(survey);
 
@@ -203,7 +207,8 @@ export async function GetTicketList(req: Request, res: Response, next: NextFunct
             model: 'Question',
             populate: {
                 path: 'optionsList',
-                model: 'Option'
+                model: 'Option',
+
             }
         }).exec();
 
@@ -279,6 +284,14 @@ export function GetPassngerDetailsId(req: Request, res: Response, next: NextFunc
     });
 }
 
+export function CreateSurvey(req: Request, res: Response, next: NextFunction): void {
+    console.log("CreateSurvey");
+    res.render('flights/csupdate', {
+        title: 'Take Survey',
+        page: 'details',
+    });
+
+}
 export function UpdatePassangerDetails(req: Request, res: Response, next: NextFunction): void {
     let fid = req.params['fid'];
     let id = req.params['id'];
