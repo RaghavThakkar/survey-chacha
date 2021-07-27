@@ -12,6 +12,11 @@ const SurveySchema = new Schema
         }],
         active: Boolean,
 
+        isPublic: {
+            type: Boolean,
+            default: true
+        },
+
         userId: {
             type: Number,
             default: 0

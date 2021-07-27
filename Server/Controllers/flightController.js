@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePassangerDetails = exports.CreateSurvey = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.createData = exports.CreateOrUpdateSurvey = exports.GetFlightsDetailsById = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
+exports.UpdatePassangerDetails = exports.CreateSurvey = exports.GetPassngerDetailsId = exports.AddPassanger = exports.GetTicketList = exports.createData = exports.CreateOrUpdateSurvey = exports.ProcessTicketDelete = exports.ProcessFlightAdd = exports.DisplayFlight = void 0;
 const flights_1 = __importDefault(require("../Models/flights"));
 const tickets_1 = __importDefault(require("../Models/tickets"));
 const Survey_1 = __importDefault(require("../Models/Survey"));
@@ -59,24 +59,6 @@ function ProcessTicketDelete(req, res, next) {
     });
 }
 exports.ProcessTicketDelete = ProcessTicketDelete;
-function GetFlightsDetailsById(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let id = req.params['id'];
-        try {
-            const item = yield flights_1.default.findById(id).exec();
-            res.render('flights/details', {
-                title: 'Passanger Details',
-                page: 'details',
-                flight: item
-            });
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.GetFlightsDetailsById = GetFlightsDetailsById;
 function CreateOrUpdateSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

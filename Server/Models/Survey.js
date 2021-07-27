@@ -11,6 +11,10 @@ const SurveySchema = new Schema({
             ref: 'Question'
         }],
     active: Boolean,
+    isPublic: {
+        type: Boolean,
+        default: true
+    },
     userId: {
         type: Number,
         default: 0

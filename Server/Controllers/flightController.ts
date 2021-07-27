@@ -65,22 +65,7 @@ export function ProcessTicketDelete(req: Request, res: Response, next: NextFunct
 }
 
 
-export async function GetFlightsDetailsById(req: Request, res: Response, next: NextFunction) {
-    let id = req.params['id'];
 
-    try {
-
-        const item = await Flight.findById(id).exec();
-        res.render('flights/details', {
-            title: 'Passanger Details',
-            page: 'details',
-            flight: item
-        });
-    } catch (err) {
-        console.error(err);
-        res.end(err);
-    }
-}
 
 export async function CreateOrUpdateSurvey(req: Request, res: Response, next: NextFunction) {
 

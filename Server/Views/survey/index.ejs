@@ -13,35 +13,26 @@
           <div class="card-body">
     <h5 class="card-title">Create Survey</h5>
       </div>
-      <a href="survey.html">
+      <a href="/survey/add">
         <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_XyWejw.json"  background="transparent"  speed="1"  style="width: 250px; height: 240px;"  loop autoplay></lottie-player>
          </a>
     </div>
       </div>
+  <% for (let count=0; count < items.length; count++) { %>
 
        <div class="col-xl-3 col-sm-12 mb-2 ">
-        <div class="card d-flex justify-content-center flex-column" style="width: 15rem; height: 19rem;">
-          <div><h4>Title</h4></div>
+        <div class="card shadow-lg p-3 mb-2 bg-white rounded d-flex justify-content-center flex-column" style="width: 15rem; height: 19rem;">
+          <div><h4> <%=   items[count].title%></h4></div>
           <div><span class="text-muted">State: Active</span></div>
-          <div><p>Desription</p></div>
+          <div><p> <%=   items[count].description%></p></div>
+           <a href="/survey/take/<%=items[count]._id%>" class="btn btn-warning mb-2"> Take Survey <i class="fas fa-arrow-right"></i></a>
+            <a href="/flights" class="btn btn-warning mb-2"><i class="fa fa-pen"></i> Edit</a>
+             <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
       </div>
     </div>
 
-       <div class="col-xl-3 col-sm-12 mb-2 d-flex justify-content-center flex-column">
-         <div class="card d-flex justify-content-center flex-column" style="width: 15rem; height: 19rem;">
-          <div><h4>Title</h4></div>
-          <div><span class="text-muted">State: Active</span></div>
-          <div><p>Desription</p></div>
-      </div>
-      </div>
-
-       <div class="col-xl-3 col-sm-12 mb-2 d-flex justify-content-center flex-column">
-         <div class="card d-flex justify-content-center flex-column" style="width: 15rem; height: 19rem;">
-          <div><h4>Title</h4></div>
-          <div><span class="text-muted">State: Active</span></div>
-          <div><p>Desription</p></div>
-      </div>
-      </div>
+   <% } %>
+       
 
 
     </div>

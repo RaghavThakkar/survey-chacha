@@ -8,4 +8,10 @@ const surveyController_1 = require("../Controllers/surveyController");
 const router = express_1.default.Router();
 exports.default = router;
 router.get('/', surveyController_1.DisplaySurvey);
+router.get('/thanks', surveyController_1.DisplayThankYou);
+router.get('/add', surveyController_1.CreateSurvey);
+router.post('/add', surveyController_1.ProcessSurvey);
+router.get('/delete/:id', surveyController_1.DeleteSurvey);
+router.get('/take/:id', surveyController_1.TakeSurvey);
+router.post('/take/:id', surveyController_1.ProcessTakeSurvey);
 //# sourceMappingURL=surveyRoute.js.map

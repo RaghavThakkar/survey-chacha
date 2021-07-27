@@ -1,5 +1,5 @@
 <%- include('../partials/header.ejs'); %>
-
+  
   <!-- MAIN CONTENT -->
   <div class="container mb-3">
     <div class="row d-flex justify-content-center">
@@ -10,38 +10,38 @@
 
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="border-left: 5px solid rgb(114, 114, 114)">
                 <div class="card-body">
-                  <h5 class="card-title">Title</h5>
-                  <h6 class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</h6>
+                  <h5 class="card-title"><%= data.title %></h5>
+                  <h6 class="card-text"><%= data.description %></h6>
                 </div>
               </div>
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(44, 235, 162)">
                 <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
+                 <h5 class="card-title"><%=data.questions[0].question%></h5>
 
 
+
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q1Radio" value=0 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[0].optionsList[0].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q1Radio" value=1 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[0].optionsList[1].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q1Radio" value=2  class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[0].optionsList[2].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q1Radio" value=3  class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[0].optionsList[3].option %></h6>
                     </label>
                   </div>
 
@@ -51,31 +51,32 @@
 
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(46, 202, 230)">
                 <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
+                  <h5 class="card-title"><%=data.questions[1].question%></h5>
 
 
+
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q2Radio"  value=0 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[1].optionsList[0].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q2Radio"  value=1 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[1].optionsList[1].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q2Radio" value=2 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[1].optionsList[2].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q2Radio" value=3 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                       <h6><%= data.questions[1].optionsList[3].option %></h6>
                     </label>
                   </div>
 
@@ -84,31 +85,32 @@
               </div>
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(57, 101, 244)">
                 <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
+                 <h5 class="card-title"><%=data.questions[2].question%></h5>
 
 
+
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q3Radio" value=0  class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[2].optionsList[0].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q3Radio" value=1  class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                     <h6><%= data.questions[2].optionsList[1].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q3Radio" value=2 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                     <h6><%= data.questions[2].optionsList[2].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q3Radio" value=3 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[2].optionsList[3].option %></h6>
                     </label>
                   </div>
 
@@ -117,31 +119,32 @@
               </div>
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(233, 119, 119)">
                 <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
+                   <h5 class="card-title"><%=data.questions[3].question%></h5>
 
 
+
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q4Radio" value=0  class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                    <h6><%= data.questions[3].optionsList[0].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q4Radio" value=1 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                        <h6><%= data.questions[3].optionsList[1].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q4Radio" value=2 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[3].optionsList[2].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q4Radio" value=3 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                       <h6><%= data.questions[3].optionsList[3].option %></h6>
                     </label>
                   </div>
 
@@ -150,31 +153,31 @@
               </div>
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(245, 232, 89)">
                 <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
+                  <h5 class="card-title"><%=data.questions[4].question%></h5>
 
 
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q5Radio" value=0 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                    <h6><%= data.questions[4].optionsList[0].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q5Radio" value=1 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                     <h6><%= data.questions[4].optionsList[1].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q5Radio" value=2 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                      <h6><%= data.questions[4].optionsList[2].option %></h6>
                     </label>
                   </div>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input type="radio" id="customRadio1" name="q5Radio" value=3 class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6>Toggle this custom radio</h6>
+                    <h6><%= data.questions[4].optionsList[1].option %></h6>
                     </label>
                   </div>
 
@@ -183,11 +186,10 @@
               </div>
 
               <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
-              <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+              <a href="/flights" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
             </form>
       </div>
 
     </div>
   </div>
 
-  <%- include('../partials/footer.ejs'); %>

@@ -1,11 +1,14 @@
 /* Custom CSS goes here */
 
 body {
-        background: #43cea2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #185a9d, #43cea2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
-    }
+    background: #43cea2;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #185a9d, #43cea2);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
 
 .input-group-addon:first-child {
     border-right: 0;
@@ -57,8 +60,7 @@ body {
     display: none;
 }
 
-.margin-div-right 
-{
+.margin-div-right {
     margin-left: 10px;
 }
 
@@ -68,8 +70,7 @@ body {
     align-items: center;
 }
 
-.jumbotron 
-{
+.jumbotron {
     background-color: #cccfcf;
     display: flex;
     justify-content: space-around;

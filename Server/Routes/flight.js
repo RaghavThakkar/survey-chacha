@@ -10,7 +10,6 @@ const flightController_1 = require("../Controllers/flightController");
 router.get('/', flightController_1.DisplayFlight);
 router.get('/cs', flightController_1.CreateSurvey);
 router.get('/ticket/delete/:id', flightController_1.ProcessTicketDelete);
-router.get('/book/:id', flightController_1.GetFlightsDetailsById);
 router.post('/book/:id', flightController_1.AddPassanger);
 router.get('/ticket-list', flightController_1.GetTicketList);
 router.get('/create', flightController_1.createData);
