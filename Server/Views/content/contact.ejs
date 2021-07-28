@@ -1,0 +1,41 @@
+  <%- include('../partials/header.ejs'); %>
+  <div class="container mt-5">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+
+     
+ <div class="container d-flex justify-content-center align-items-cente flex-column">
+   <h1 class="display-4 text-center">Contact Us</h1>
+
+   <form >
+
+   <div class="form-group mt-2">
+    <label for="fullName">Full Name</label>
+    <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter Name">
+  </div>
+
+  <div class="form-group mt-2">
+    <label for="exampleFormControlInput1">Email address</label>
+    <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="name@example.com">
+  </div>
+
+ <div class="form-group mt-2">
+    <label for="phone">Phone Number</label>
+    <input type="Number" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number">
+  </div>
+
+  <div class="form-group mt-2">
+    <label for="exampleFormControlTextarea1">Message</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+</div>
+
+
+
+    </div>
+  </div>
+  
+  <%- include('../partials/footer.ejs'); %>
