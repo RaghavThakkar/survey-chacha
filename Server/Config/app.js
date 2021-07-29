@@ -38,7 +38,6 @@ db.once("open", function () {
     console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
 });
 const index_1 = __importDefault(require("../Routes/index"));
-const flight_1 = __importDefault(require("../Routes/flight"));
 const surveyRoute_1 = __importDefault(require("../Routes/surveyRoute"));
 const app = express_1.default();
 exports.default = app;
@@ -51,7 +50,6 @@ app.use(cookie_parser_1.default());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../../Client')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../../node_modules')));
 app.use('/', index_1.default);
-app.use('/flights', flight_1.default);
 app.use('/survey', surveyRoute_1.default);
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));

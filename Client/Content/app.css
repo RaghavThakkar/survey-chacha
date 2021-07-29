@@ -10,6 +10,28 @@ body {
 
 }
 
+.nav-item {
+    list-style: none;
+}
+
+.nav-item a {
+    border-radius: 25px;
+    padding: 10px;
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.nav-item a:hover {
+    border-radius: 25px;
+    background-color: #66c1a3;
+    color: white !important;
+}
+
+.nav-item.active {
+    background-color: #1B3E70;
+    color: white;
+}
+
 .input-group-addon:first-child {
     border-right: 0;
 }
