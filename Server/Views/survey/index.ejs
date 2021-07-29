@@ -2,8 +2,17 @@
     <div class="container mt-5">
     <div class="shadow-lg p-3 mb-5 bg-white rounded">
 
-     <div class="row text-center">
-       <h3>Recent Surveys</h3>
+     <div class="row text-center  mb-5">
+     <div class="d-flex flex-row justify-content-center">
+  <h3>Surveys</h3>
+  <div class="p-2">     </div>
+  <% if(responseCount!=0){ %>
+   <a href="#" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Responses(<%= responseCount%>)</a>
+   <% } %>
+  
+</div>
+       
+       
      </div>
 
       <div class="row text-center">
@@ -26,7 +35,7 @@
           <div><span class="text-muted">State: Active</span></div>
           <div><p> <%=   items[count].description%></p></div>
            <a href="/survey/take/<%=items[count]._id%>" class="btn btn-warning mb-2"> Take Survey <i class="fas fa-arrow-right"></i></a>
-            <a href="/flights" class="btn btn-warning mb-2"><i class="fa fa-pen"></i> Edit</a>
+            <a href="/survey/edit/<%=items[count]._id%>" class="btn btn-warning mb-2"><i class="fa fa-pen"></i> Edit</a>
              <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
       </div>
     </div>

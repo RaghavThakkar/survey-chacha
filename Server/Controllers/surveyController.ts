@@ -10,8 +10,14 @@ export async function DisplaySurvey(req: Request, res: Response, next: NextFunct
 
     try {
         const surveyList = await Survey.find().lean().exec()
+        const surveyResponse = await SurveyResponse.count().exec();
         console.log(surveyList);
-        res.render('survey/index', { title: 'list-survey', page: 'index', items: surveyList });
+        res.render('survey/index', {
+            title: 'list-survey',
+            page: 'index',
+            items: surveyList,
+            responseCount: surveyResponse
+        });
     } catch (err) {
         console.error(err);
         res.end(err);
@@ -95,9 +101,131 @@ export async function DeleteSurvey(req: Request, res: Response, next: NextFuncti
     }
 }
 
+export async function EditSurvey(req: Request, res: Response, next: NextFunction) {
+    try {
+        let id = req.params.id;
+
+        const item = await Survey.findOne({ _id: id }).populate({
+            path: 'questions',
+            model: 'Question',
+            populate: {
+                path: 'optionsList',
+                model: 'Option',
+
+            }
+        }).exec();
+        res.render('survey/edit',
+            {
+                title: 'Edit Survey',
+                page: 'index',
+                data: item
+            });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+}
+
+
+export async function ProcessEditSurvey(req: Request, res: Response, next: NextFunction) {
+    try {
+        let id = req.params.id;
+
+        let item = await Survey.findOne({ _id: id }).populate({
+            path: 'questions',
+            model: 'Question',
+            populate: {
+                path: 'optionsList',
+                model: 'Option',
+
+            }
+        }).exec();
+
+        console.log(req.body.q1);
+        item.title = req.body.title;
+        item.description = req.body.description;
+
+        //update question 1
+        item.questions[0].question = req.body.q1;
+
+        item.questions[0].optionsList[0].option = req.body.q1o1;
+        item.questions[0].optionsList[1].option = req.body.q1o2;
+        item.questions[0].optionsList[2].option = req.body.q1o3;
+        item.questions[0].optionsList[3].option = req.body.q1o4;
+
+        item.questions[0].optionsList[0].save();
+        item.questions[0].optionsList[1].save();
+        item.questions[0].optionsList[2].save();
+        item.questions[0].optionsList[3].save();
+
+        //update question 2
+        item.questions[1].question = req.body.q2;
+        item.questions[1].optionsList[0].option = req.body.q2o1;
+        item.questions[1].optionsList[1].option = req.body.q2o2;
+        item.questions[1].optionsList[2].option = req.body.q2o3;
+        item.questions[1].optionsList[3].option = req.body.q2o4;
+
+        item.questions[1].optionsList[0].save();
+        item.questions[1].optionsList[1].save();
+        item.questions[1].optionsList[2].save();
+        item.questions[1].optionsList[3].save();
+
+        //update question 3
+        item.questions[2].question = req.body.q3;
+        item.questions[2].optionsList[0].option = req.body.q3o1;
+        item.questions[2].optionsList[1].option = req.body.q3o2;
+        item.questions[2].optionsList[2].option = req.body.q3o3;
+        item.questions[2].optionsList[3].option = req.body.q3o4;
+
+        item.questions[2].optionsList[0].save();
+        item.questions[2].optionsList[1].save();
+        item.questions[2].optionsList[2].save();
+        item.questions[2].optionsList[3].save();
+
+        //update q4
+        item.questions[3].question = req.body.q4;
+        item.questions[3].optionsList[0].option = req.body.q4o1;
+        item.questions[3].optionsList[1].option = req.body.q4o2;
+        item.questions[3].optionsList[2].option = req.body.q4o3;
+        item.questions[3].optionsList[3].option = req.body.q4o4;
+
+        item.questions[3].optionsList[0].save();
+        item.questions[3].optionsList[1].save();
+        item.questions[3].optionsList[2].save();
+        item.questions[3].optionsList[3].save();
+        //update question 5
+        item.questions[4].question = req.body.q5;
+        item.questions[4].optionsList[0].option = req.body.q5o1;
+        item.questions[4].optionsList[1].option = req.body.q5o2;
+        item.questions[4].optionsList[2].option = req.body.q5o3;
+        item.questions[4].optionsList[3].option = req.body.q5o4;
+
+        item.questions[4].optionsList[0].save();
+        item.questions[4].optionsList[1].save();
+        item.questions[4].optionsList[2].save();
+        item.questions[4].optionsList[3].save();
+
+
+        item.questions[0].save();
+        item.questions[1].save();
+        item.questions[2].save();
+        item.questions[3].save();
+        item.questions[4].save();
+
+        item.save();
+
+        res.redirect('/survey');
+
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+}
+
 export async function ProcessSurvey(req: Request, res: Response, next: NextFunction) {
 
     try {
+
 
         console.log(req);
 

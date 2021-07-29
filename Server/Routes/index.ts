@@ -17,4 +17,19 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/contact', (req, res, next) => {
+  res.render('content/contact', {
+    title: 'Home',
+    page: 'home',
+    books: ''
+  });
+});
+
+router.get('/about', (req, res, next) => {
+  res.render('content/about', {
+    title: 'Home',
+    page: 'home',
+    books: ''
+  });
+});
 //module.exports = router;
