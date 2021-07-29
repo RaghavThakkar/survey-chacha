@@ -35,8 +35,11 @@
           <div><span class="text-muted">State: Active</span></div>
           <div><p> <%=   items[count].description%></p></div>
            <a href="/survey/take/<%=items[count]._id%>" class="btn btn-warning mb-2"> Take Survey <i class="fas fa-arrow-right"></i></a>
-            <a href="/survey/edit/<%=items[count]._id%>" class="btn btn-warning mb-2"><i class="fa fa-pen"></i> Edit</a>
-             <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+           
+             <a href="/survey/edit/<%=items[count]._id%>" class="btn btn-primary mb-2"><i class="fa fa-pen"></i> </a>
+             <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger delete"><i class="fa fa-trash"></i> </a>
+          
+          
       </div>
     </div>
 
@@ -45,8 +48,6 @@
 
 
     </div>
-
-
 
     </div>
   </div>

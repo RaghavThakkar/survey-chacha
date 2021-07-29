@@ -8,7 +8,7 @@
     $("a.delete").on("click", function (event) {
       if (!confirm("Are you sure?")) {
         event.preventDefault();
-        location.href = '/flights/ticket-list';
+        //location.href = '/survey';
       }
     });
   }

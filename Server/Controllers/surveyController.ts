@@ -93,6 +93,16 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
 export async function DeleteSurvey(req: Request, res: Response, next: NextFunction) {
     try {
         let id = req.params.id;
+
+        const survey = await Survey.findOne({ _id: id }).exec();
+        console.log(survey);
+        // for (let question in survey.questions) {
+        //     for (let option in question.optionList) {
+        //         await Option.remove({ _id: option.id }).exec();
+        //     }
+        //     await Question.remove({ _id: question.id }).exec();
+
+        // }
         await Survey.remove({ _id: id }).exec();
         res.redirect('/survey');
     } catch (err) {

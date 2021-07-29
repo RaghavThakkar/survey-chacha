@@ -110,6 +110,8 @@ function DeleteSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let id = req.params.id;
+            const survey = yield Survey_1.default.findOne({ _id: id }).exec();
+            console.log(survey);
             yield Survey_1.default.remove({ _id: id }).exec();
             res.redirect('/survey');
         }
