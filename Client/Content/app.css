@@ -97,3 +97,14 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+.zoom {
+    margin-left: 10px;
+    transition: transform .4s;
+    /* Animation */
+
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
