@@ -16,6 +16,7 @@ exports.ProcessSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = expor
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
+const SurveyResponse_1 = __importDefault(require("../Models/SurveyResponse"));
 function DisplaySurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -83,7 +84,13 @@ function ProcessTakeSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let id = req.params.id;
-            console.log(req.body);
+            const survey = yield Survey_1.default.findOne({ _id: id }).exec();
+            const surveyresponse = new SurveyResponse_1.default({
+                questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
+                survey: survey,
+                ownerId: 0
+            });
+            const q1o1 = yield SurveyResponse_1.default.create(surveyresponse);
             res.redirect('/survey/thanks');
         }
         catch (err) {
@@ -152,7 +159,7 @@ function ProcessSurvey(req, res, next) {
                 type: "2"
             });
             const q5 = new questions_1.default({
-                question: req.body.q1,
+                question: req.body.q5,
                 optionsList: [q5o1, q5o2, q5o3, q5o4],
                 type: "2"
             });

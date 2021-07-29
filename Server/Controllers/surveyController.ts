@@ -4,7 +4,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import Survey from '../Models/Survey';
 import Option from '../Models/Option';
 import Question from '../Models/questions';
-
+import SurveyResponse from '../Models/SurveyResponse';
 
 export async function DisplaySurvey(req: Request, res: Response, next: NextFunction) {
 
@@ -66,7 +66,17 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
 export async function ProcessTakeSurvey(req: Request, res: Response, next: NextFunction) {
     try {
         let id = req.params.id;
-        console.log(req.body);
+        const survey = await Survey.findOne({ _id: id }).exec();
+
+        const surveyresponse = new SurveyResponse(
+            {
+                questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
+                survey: survey,
+                ownerId: 0
+            }
+        );
+
+        const q1o1 = await SurveyResponse.create(surveyresponse);
         res.redirect('/survey/thanks');
     } catch (err) {
         console.error(err);
@@ -145,7 +155,7 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
         });
 
         const q5 = new Question({
-            question: req.body.q1,
+            question: req.body.q5,
             optionsList: [q5o1, q5o2, q5o3, q5o4],
             type: "2"
         });
