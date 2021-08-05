@@ -17,6 +17,7 @@ const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
 const SurveyResponse_1 = __importDefault(require("../Models/SurveyResponse"));
+const Util_1 = require("../Util");
 function DisplaySurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -27,7 +28,8 @@ function DisplaySurvey(req, res, next) {
                 title: 'list-survey',
                 page: 'index',
                 items: surveyList,
-                responseCount: surveyResponse
+                responseCount: surveyResponse,
+                displayName: Util_1.UserDisplayName(req)
             });
         }
         catch (err) {

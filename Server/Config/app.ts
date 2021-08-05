@@ -8,10 +8,36 @@ import logger from 'morgan';
 // import "mongoose" - required for DB Access
 import mongoose, { mongo } from 'mongoose';
 
+// modules for authentication
+import session from 'express-session';
+import passport from 'passport';
+import passportLocal from 'passport-local';
+// modules for cors
+import cors from 'cors';
+
+// authentication objects
+let localStrategy = passportLocal.Strategy; // alias
+import User from '../Models/user';
+
+// module for auth messaging and error management
+import flash from 'connect-flash';
 // URI
+
+
+
+// define routers
+import index from '../Routes/index'; // top level routes
+import survey from '../Routes/surveyRoute';
+
+// Express Web App Configuration
+const app = express();
+export default app; // exports app as the default Object for this module
+
+
 import * as DBConfig from './db';
 
 mongoose.connect(process.env.URI || DBConfig.LocalURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const db = mongoose.connection; // alias for the mongoose connection
 db.on("error", function () {
@@ -21,14 +47,6 @@ db.on("error", function () {
 db.once("open", function () {
   console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
 });
-
-// define routers
-import index from '../Routes/index'; // top level routes
-import survey from '../Routes/surveyRoute';
-
-// Express Web App Configuration
-const app = express();
-export default app; // exports app as the default Object for this module
 
 // view engine setup
 app.set('views', path.join(__dirname, '../Views'));
@@ -41,6 +59,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Client')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+
+
+// add support for cors object
+app.use(cors());
+
+// setup express session
+app.use(session({
+  secret: DBConfig.Secret,
+  saveUninitialized: false,
+  resave: false
+}));
+
+// initialize connect-flash
+app.use(flash());
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// implement an Auth Strategy - "local" - username / password
+passport.use(User.createStrategy());
+
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // route redirects
 app.use('/', index);

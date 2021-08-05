@@ -6,6 +6,12 @@ import Option from '../Models/Option';
 import Question from '../Models/questions';
 import SurveyResponse from '../Models/SurveyResponse';
 
+import passport from 'passport';
+
+import User from '../Models/user';
+
+import { UserDisplayName } from '../Util'
+
 export async function DisplaySurvey(req: Request, res: Response, next: NextFunction) {
 
     try {
@@ -16,7 +22,8 @@ export async function DisplaySurvey(req: Request, res: Response, next: NextFunct
             title: 'list-survey',
             page: 'index',
             items: surveyList,
-            responseCount: surveyResponse
+            responseCount: surveyResponse,
+            displayName: UserDisplayName(req)
         });
     } catch (err) {
         console.error(err);

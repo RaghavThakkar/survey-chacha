@@ -6,25 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
-router.get('/', (req, res, next) => {
-    res.render('content/index', {
-        title: 'Home',
-        page: 'home',
-        books: ''
-    });
-});
-router.get('/contact', (req, res, next) => {
-    res.render('content/contact', {
-        title: 'Home',
-        page: 'home',
-        books: ''
-    });
-});
-router.get('/about', (req, res, next) => {
-    res.render('content/about', {
-        title: 'Home',
-        page: 'home',
-        books: ''
-    });
-});
+const index_1 = require("../Controllers/index");
+router.get('/', index_1.DisplayHomePage);
+router.get('/contact', index_1.DisplayContactPage);
+router.get('/about', index_1.DisplayAboutPage);
+router.get('/login', index_1.DisplayLoginPage);
+router.post('/login', index_1.ProcessLoginPage);
+router.get('/register', index_1.DisplayRegisterPage);
+router.post('/register', index_1.ProcessRegisterPage);
+router.get('/logout', index_1.ProcessLogoutPage);
 //# sourceMappingURL=index.js.map

@@ -6,30 +6,29 @@ export default router;
 import mongoose from 'mongoose';
 
 // define the book model
+import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
 
 
 /* GET home page. wildcard */
-router.get('/', (req, res, next) => {
-  res.render('content/index', {
-    title: 'Home',
-    page: 'home',
-    books: ''
-  });
-});
+router.get('/', DisplayHomePage);
 
-router.get('/contact', (req, res, next) => {
-  res.render('content/contact', {
-    title: 'Home',
-    page: 'home',
-    books: ''
-  });
-});
+router.get('/contact', DisplayContactPage);
 
-router.get('/about', (req, res, next) => {
-  res.render('content/about', {
-    title: 'Home',
-    page: 'home',
-    books: ''
-  });
-});
+router.get('/about', DisplayAboutPage);
 //module.exports = router;
+
+/* GET login page. */
+router.get('/login', DisplayLoginPage);
+
+/* Post login page. */
+router.post('/login', ProcessLoginPage);
+
+/* GET login page. */
+router.get('/register', DisplayRegisterPage);
+
+/* Post register page. */
+router.post('/register', ProcessRegisterPage);
+
+
+/* Post register page. */
+router.get('/logout', ProcessLogoutPage);
