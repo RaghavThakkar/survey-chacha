@@ -1,15 +1,84 @@
 <%- include('../partials/header.ejs'); %>
-    <div class="container1">
-        <form id="loginForm" novalidate method="POST">
+    <div>
+        <form id="loginForm" class="container1" novalidate method="POST">
             <button class="add_form_field">Add New Field &nbsp;
                 <span style="font-size:16px; font-weight:bold;">+ </span>
             </button>
-            <div><input type="text" name="mytext[]"></div>
+            <div><input type="text" index="1" name="q1"></div>
+            <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
+                <div class="card-body">
+                    <h5 class="card-title">Question 1</h5>
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Question1</div>
+                            </div>
+                            <input type="text" required name="q1" class="form-control" id="inlineFormInputGroup"
+                                placeholder="Question">
+                        </div>
+                    </div>
+
+
+
+                    <div class="op1">
+                        <h5 class="card-title">Options</h5>
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Option</div>
+                                </div>
+                                <input type="text" required name="q1o1" class="form-control" id="inlineFormInputGroup"
+                                    placeholder="Option1">
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Option</div>
+                                </div>
+                                <input type="text" required name="q1o2" class="form-control" id="inlineFormInputGroup"
+                                    placeholder="Option2">
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Option</div>
+                                </div>
+                                <input type="text" required name="q1o3" class="form-control" id="inlineFormInputGroup"
+                                    placeholder="Option3">
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Option</div>
+                                </div>
+                                <input type="text" required name="q1o4" class="form-control" id="inlineFormInputGroup"
+                                    placeholder="Option4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="text-end mt-2 col-auto">
                 <button id="loginButton" type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>
                     Login</button>
                 <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
                     Cancel</button>
+                <button id="tf" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
+                    Add True False</button>
+
+                <button id="mcq" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
+                    Add multiple choice questions</button>
         </form>
     </div>
 

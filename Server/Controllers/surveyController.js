@@ -67,6 +67,8 @@ function ProcessDF(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(req.body);
+            console.log(req.body['q1']);
+            console.log(req.body['q2']);
             res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {

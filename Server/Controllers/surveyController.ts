@@ -58,6 +58,8 @@ export async function DF(req: Request, res: Response, next: NextFunction) {
 export async function ProcessDF(req: Request, res: Response, next: NextFunction) {
     try {
         console.log(req.body);
+        console.log(req.body['q1']);
+        console.log(req.body['q2']);
         res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);

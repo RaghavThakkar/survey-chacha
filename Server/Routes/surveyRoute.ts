@@ -22,4 +22,4 @@ router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
 
 
 //export
-router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
+//router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
