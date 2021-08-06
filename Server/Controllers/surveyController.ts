@@ -5,7 +5,8 @@ import Survey from '../Models/Survey';
 import Option from '../Models/Option';
 import Question from '../Models/questions';
 import SurveyResponse from '../Models/SurveyResponse';
-
+import { promises as fs } from "fs";
+//import Parser from "json2csv";
 import passport from 'passport';
 
 import User from '../Models/user';
@@ -389,3 +390,58 @@ export async function DisplaySurveyResponse(req: Request, res: Response, next: N
 
 
 }
+
+// export async function ExportSurveyResponse(req: Request, res: Response, next: NextFunction) {
+//     try {
+//         let id = req.params.id;
+//         const responses = await SurveyResponse.find({ "survey": objectId(id) }).populate({
+//             path: 'ownerId',
+//             model: 'User',
+
+//         }).lean().exec();
+
+//         var data = [
+//             {
+//                 name: 'Test 1',
+//                 age: 13,
+//                 average: 8.2,
+//                 approved: true,
+//                 description: "using 'Content here, content here' "
+//             },
+//             {
+//                 name: 'Test 2',
+//                 age: 11,
+//                 average: 8.2,
+//                 approved: true,
+//                 description: "using 'Content here, content here' "
+//             },
+//             {
+//                 name: 'Test 4',
+//                 age: 10,
+//                 average: 8.2,
+//                 approved: true,
+//                 description: "using 'Content here, content here' "
+//             },
+//         ];
+
+//         const fields = Object.keys(data[0]);
+//         const csv = new Parser(fields);
+
+//         const fileData = await fs.writeFile("data.csv", csv.parse(data));
+
+//         console.log(responses);
+//         res.render('surveyResponse/index', {
+//             title: 'list-survey',
+//             page: 'index',
+//             items: responses,
+//             id: id,
+//             displayName: UserDisplayName(req)
+//         });
+
+//     } catch (err) {
+//         console.error(err);
+//         res.end(err);
+//     }
+
+
+// }

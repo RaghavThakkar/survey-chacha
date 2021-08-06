@@ -19,5 +19,5 @@ router.get('/take/:id', Util_1.AuthGuard, surveyController_1.TakeSurvey);
 router.post('/take/:id', Util_1.AuthGuard, surveyController_1.ProcessTakeSurvey);
 router.get('/response/:id', Util_1.AuthGuard, surveyController_1.DisplaySurveyResponse);
 router.post('/response/:id', Util_1.AuthGuard, surveyController_1.ProcessTakeSurvey);
-router.get('/response/:id', Util_1.AuthGuard, surveyController_1.DisplaySurveyResponse);
+router.get('/response/export/:id', Util_1.AuthGuard, surveyController_1.ExportSurveyResponse);
 //# sourceMappingURL=surveyRoute.js.map
