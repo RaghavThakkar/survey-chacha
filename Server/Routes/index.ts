@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 
 // define the book model
 import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
+import { DF, ProcessDF } from '../Controllers/surveyController';
 
 
 /* GET home page. wildcard */
@@ -19,7 +20,8 @@ router.get('/about', DisplayAboutPage);
 
 /* GET login page. */
 router.get('/login', DisplayLoginPage);
-
+router.get('/df', DF);
+router.post('/df', ProcessDF);
 /* Post login page. */
 router.post('/login', ProcessLoginPage);
 

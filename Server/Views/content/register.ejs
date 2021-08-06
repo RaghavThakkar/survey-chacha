@@ -1,18 +1,26 @@
- <%- include('../partials/header.ejs'); %>
-<div class="row">
-    <div class="offset-md-3 col-md-6 col-sm-12">
-          <div class="login" id="contentArea">
-              <h1 class="display-4">Register</h1>
+<%- include('../partials/header.ejs'); %>
+  <div class="container mb-3 ">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-offset-3 col-md-6">
 
-              <% if(messages.length > 0) { %>
-                <div id="messageArea" class="alert alert-danger">
-                  <%= messages %>
-                </div>
-              <% } %>
+        <!-- message area -->
 
-              <form method="POST" id="registerForm" novalidate>
-                <p class="hint-text">Create your own account. It's free and only takes a minute.</p>
-                <div class="form-group">
+
+        <form id="loginForm" novalidate method="POST" style="margin-top: 100px ;">
+
+          <div class="card shadow-lg p-3 mb-5 bg-black rounded">
+            <div class="card-body">
+              <h1 class="card-title text-center">Register</h1>
+                <p class="hint-text text-center">Create your own account. It's free and only takes a minute.</p>
+              <%- include('../partials/footer.ejs'); %>
+
+
+                <% if(messages.length> 0) { %>
+                  <div id="messageArea" class="alert alert-danger">
+                    <%= messages %>
+                  </div>
+                  <% } %>
+                    <div class="form-group">
                   <div class="row">
                     <p class="lead"><i class="fas fa-user-shield"></i> Personal Information</p>
                     <div class="col-md-6">
@@ -23,7 +31,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group  mt-1 ">
                   <div class="row">
                     <div class="col-md-12">
                       <input type="email" class="form-control" id="emailAddress" name="EmailAddress" required
@@ -34,14 +42,15 @@
 
                 <div class="form-group mt-4">
                   <div class="row">
-                    <p class="lead"><i class="fas fa-database"></i>System Identification</p>
-                    <div class="col-md-12">
+                  <p class="lead"><i class="fas fa-database"></i> System Identification</p>
+                    
+                    <div class="col-md-6">
                       <input type="text" class="form-control" id="username" name="username"  required
                       value="" placeholder="Username">
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-1 ">
                   <div class="row">
                     <div class="col-md-12">
                       <input type="password" class="form-control" id="password" name="password"  required
@@ -49,7 +58,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-1 ">
                   <div class="row">
                     <div class="col-md-12">
                       <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"  required
@@ -59,17 +68,23 @@
                 </div>
                  
                                                     
-                <div class="text-end mt-2">
+                <div class="text-end mt-2 ">
                   <button id="submitButton" type="submit" class="btn btn-primary">Register</button>
                   <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo fa-lg"></i> Cancel</button>
                 </div>
-              </form>
-             
-          </div>
-          <p class="text-center text-muted small">
+
+            </div>
+
+              <p class="text-center text-muted small">
             Already have an account? 
             <a href="/login">Sign in</a>
           </p>
+          </div>
+
+
+        </form>
+
+      </div>
+
     </div>
-</div>
-<%- include('../partials/footer.ejs'); %>
+  </div>

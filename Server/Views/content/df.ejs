@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs'); %>
+    <div class="container1">
+        <form id="loginForm" novalidate method="POST">
+            <button class="add_form_field">Add New Field &nbsp;
+                <span style="font-size:16px; font-weight:bold;">+ </span>
+            </button>
+            <div><input type="text" name="mytext[]"></div>
+            <div class="text-end mt-2 col-auto">
+                <button id="loginButton" type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>
+                    Login</button>
+                <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
+                    Cancel</button>
+        </form>
+    </div>
+
+    </div>
+
+
+    <%- include('../partials/footer.ejs'); %>

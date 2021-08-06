@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
@@ -42,7 +42,7 @@ exports.DisplaySurvey = DisplaySurvey;
 function CreateSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('survey/add', { title: 'Create Survey', page: 'index' });
+            res.render('survey/add', { title: 'Create Survey', page: 'index', });
         }
         catch (err) {
             console.error(err);
@@ -51,6 +51,31 @@ function CreateSurvey(req, res, next) {
     });
 }
 exports.CreateSurvey = CreateSurvey;
+function DF(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DF = DF;
+function ProcessDF(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(req.body);
+            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ProcessDF = ProcessDF;
 function DisplayThankYou(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

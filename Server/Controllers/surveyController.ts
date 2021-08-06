@@ -35,7 +35,26 @@ export async function DisplaySurvey(req: Request, res: Response, next: NextFunct
 
 export async function CreateSurvey(req: Request, res: Response, next: NextFunction) {
     try {
-        res.render('survey/add', { title: 'Create Survey', page: 'index' });
+        res.render('survey/add', { title: 'Create Survey', page: 'index', });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+}
+
+export async function DF(req: Request, res: Response, next: NextFunction) {
+    try {
+        res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+}
+
+export async function ProcessDF(req: Request, res: Response, next: NextFunction) {
+    try {
+        console.log(req.body);
+        res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);
         res.end(err);
