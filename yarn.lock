@@ -445,6 +445,11 @@
   "resolved" "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   "version" "1.8.1"
 
+"export-to-csv@^0.2.1":
+  "integrity" "sha512-KTbrd3CAZ0cFceJEZr1e5uiMasabeCpXq1/5uvVxDl53o4jXJHnltasQoj2NkzrxD8hU9kdwjnMhoir/7nNx/A=="
+  "resolved" "https://registry.npmjs.org/export-to-csv/-/export-to-csv-0.2.1.tgz"
+  "version" "0.2.1"
+
 "express-session@^1.17.2":
   "integrity" "sha512-mPcYcLA0lvh7D4Oqr5aNJFMtBMKPLl++OKKxkHzZ0U0oDq1rpKBnkR5f5vCHR26VeArlTOEF9td4x5IjICksRQ=="
   "resolved" "https://registry.npmjs.org/express-session/-/express-session-1.17.2.tgz"

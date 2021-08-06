@@ -29,7 +29,7 @@ function DisplayServicesPage(req, res, next) {
 exports.DisplayServicesPage = DisplayServicesPage;
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
-        return res.render('content/login', { title: 'Login', page: 'login', messages: "Auth failed.", displayName: Util_1.UserDisplayName(req) });
+        return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: Util_1.UserDisplayName(req) });
     }
     return res.redirect('/survey');
 }

@@ -12,8 +12,8 @@ const SurveyResponseSchema = new Schema({
         ref: 'Survey'
     },
     ownerId: {
-        type: Number,
-        default: 0
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
     collection: 'surveyresponses'

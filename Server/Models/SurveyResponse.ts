@@ -10,12 +10,8 @@ const SurveyResponseSchema = new Schema
             ref: 'Survey'
         },
         ownerId: {
-            //1 yes no
-            //2 multiple choice,
-            //3 simple question and ans
-
-            type: Number,
-            default: 0
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }
     },
         {

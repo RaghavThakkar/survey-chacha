@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
@@ -21,7 +21,7 @@ const Util_1 = require("../Util");
 function DisplaySurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const surveyList = yield Survey_1.default.find().lean().exec();
+            const surveyList = yield Survey_1.default.find({ "userId": Util_1.objectId(Util_1.userId(req)) }).lean().exec();
             const surveyResponse = yield SurveyResponse_1.default.count().exec();
             console.log(surveyList);
             res.render('survey/index', {
@@ -42,7 +42,7 @@ exports.DisplaySurvey = DisplaySurvey;
 function CreateSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('survey/add', { title: 'Create Survey', page: 'index', });
+            res.render('survey/add', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {
             console.error(err);
@@ -79,7 +79,7 @@ exports.ProcessDF = ProcessDF;
 function DisplayThankYou(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.render('survey/thankyou', { title: 'Thank you', page: 'index' });
+            res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {
             console.error(err);
@@ -100,10 +100,12 @@ function TakeSurvey(req, res, next) {
                     model: 'Option',
                 }
             }).exec();
+            console.log("hello");
             res.render('survey/take', {
                 title: 'Take Survey',
                 page: 'index',
-                data: item
+                data: item,
+                displayName: Util_1.UserDisplayName(req)
             });
         }
         catch (err) {
@@ -121,7 +123,7 @@ function ProcessTakeSurvey(req, res, next) {
             const surveyresponse = new SurveyResponse_1.default({
                 questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
                 survey: survey,
-                ownerId: 0
+                ownerId: req.user
             });
             const q1o1 = yield SurveyResponse_1.default.create(surveyresponse);
             res.redirect('/survey/thanks');
@@ -164,7 +166,8 @@ function EditSurvey(req, res, next) {
             res.render('survey/edit', {
                 title: 'Edit Survey',
                 page: 'index',
-                data: item
+                data: item,
+                displayName: Util_1.UserDisplayName(req)
             });
         }
         catch (err) {
@@ -306,7 +309,7 @@ function ProcessSurvey(req, res, next) {
             const survey = new Survey_1.default({
                 questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
                 active: true,
-                userId: 0,
+                userId: req.user,
                 startDate: new Date(req.body.startDate),
                 endDate: new Date(req.body.endDate),
                 title: req.body.title,
@@ -322,4 +325,28 @@ function ProcessSurvey(req, res, next) {
     });
 }
 exports.ProcessSurvey = ProcessSurvey;
+function DisplaySurveyResponse(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            const responses = yield SurveyResponse_1.default.find({ "survey": Util_1.objectId(id) }).populate({
+                path: 'ownerId',
+                model: 'User',
+            }).lean().exec();
+            console.log(responses);
+            res.render('surveyResponse/index', {
+                title: 'list-survey',
+                page: 'index',
+                items: responses,
+                id: id,
+                displayName: Util_1.UserDisplayName(req)
+            });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplaySurveyResponse = DisplaySurveyResponse;
 //# sourceMappingURL=surveyController.js.map

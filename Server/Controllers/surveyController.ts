@@ -1,6 +1,6 @@
 import { Console } from 'console';
 import express, { Request, Response, NextFunction } from 'express';
-
+import mongodb = require("mongodb");
 import Survey from '../Models/Survey';
 import Option from '../Models/Option';
 import Question from '../Models/questions';
@@ -10,12 +10,15 @@ import passport from 'passport';
 
 import User from '../Models/user';
 
-import { UserDisplayName } from '../Util'
+import { UserDisplayName, userId, objectId } from '../Util'
 
 export async function DisplaySurvey(req: Request, res: Response, next: NextFunction) {
 
     try {
-        const surveyList = await Survey.find().lean().exec()
+
+
+        //const surveyList = await Survey.find().lean().exec();
+        const surveyList = await Survey.find({ "userId": objectId(userId(req)) }).lean().exec();
         const surveyResponse = await SurveyResponse.count().exec();
         console.log(surveyList);
         res.render('survey/index', {
@@ -35,7 +38,7 @@ export async function DisplaySurvey(req: Request, res: Response, next: NextFunct
 
 export async function CreateSurvey(req: Request, res: Response, next: NextFunction) {
     try {
-        res.render('survey/add', { title: 'Create Survey', page: 'index', });
+        res.render('survey/add', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);
         res.end(err);
@@ -63,12 +66,14 @@ export async function ProcessDF(req: Request, res: Response, next: NextFunction)
 
 export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
     try {
-        res.render('survey/thankyou', { title: 'Thank you', page: 'index' });
+        res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);
         res.end(err);
     }
 }
+
+
 
 export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
     try {
@@ -83,12 +88,13 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
 
             }
         }).exec();
-
+        console.log("hello");
         res.render('survey/take',
             {
                 title: 'Take Survey',
                 page: 'index',
-                data: item
+                data: item,
+                displayName: UserDisplayName(req)
             });
     } catch (err) {
         console.error(err);
@@ -99,12 +105,11 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
     try {
         let id = req.params.id;
         const survey = await Survey.findOne({ _id: id }).exec();
-
         const surveyresponse = new SurveyResponse(
             {
                 questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
                 survey: survey,
-                ownerId: 0
+                ownerId: req.user
             }
         );
 
@@ -154,7 +159,8 @@ export async function EditSurvey(req: Request, res: Response, next: NextFunction
             {
                 title: 'Edit Survey',
                 page: 'index',
-                data: item
+                data: item,
+                displayName: UserDisplayName(req)
             });
     } catch (err) {
         console.error(err);
@@ -335,7 +341,7 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
         const survey = new Survey({
             questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
             active: true,
-            userId: 0,
+            userId: req.user,
             startDate: new Date(req.body.startDate),
             endDate: new Date(req.body.endDate),
             title: req.body.title,
@@ -353,3 +359,33 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
 }
 
 
+
+
+//survey response
+
+
+export async function DisplaySurveyResponse(req: Request, res: Response, next: NextFunction) {
+    try {
+        let id = req.params.id;
+        const responses = await SurveyResponse.find({ "survey": objectId(id) }).populate({
+            path: 'ownerId',
+            model: 'User',
+
+        }).lean().exec();
+
+        console.log(responses);
+        res.render('surveyResponse/index', {
+            title: 'list-survey',
+            page: 'index',
+            items: responses,
+            id: id,
+            displayName: UserDisplayName(req)
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+}
