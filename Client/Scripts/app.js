@@ -1,16 +1,16 @@
-"use strict";
+'use strict';
 (function () {
     function confirmDelete() {
-        $("a.delete").on("click", function (event) {
-            if (!confirm("Are you sure?")) {
+        $('a.delete').on('click', function (event) {
+            if (!confirm('Are you sure?')) {
                 event.preventDefault();
             }
         });
     }
     function Start() {
-        console.log("App Started");
+        console.log('App Started');
         confirmDelete();
     }
-    window.addEventListener("load", Start);
+    window.addEventListener('load', Start);
 })();
 //# sourceMappingURL=app.js.map

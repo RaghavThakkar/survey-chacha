@@ -377,6 +377,11 @@
     "object-assign" "^4"
     "vary" "^1"
 
+"csv-writer@^1.6.0":
+  "integrity" "sha512-NOx7YDFWEsM/fTRAJjRpPp8t+MKRVvniAg9wQlUKx20MFrPs73WLJhFf5iteqrxNYnsy924K3Iroh3yNHeYd2g=="
+  "resolved" "https://registry.npmjs.org/csv-writer/-/csv-writer-1.6.0.tgz"
+  "version" "1.6.0"
+
 "debug@^4.3.1":
   "integrity" "sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz"
