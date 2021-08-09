@@ -26,6 +26,8 @@ $(document).ready(function() {
                         </div>
                         <input type="text" required name="q${x}" class="form-control" id="inlineFormInputGroup"
                             placeholder="Question">
+                            <input type="hidden" name="q${x}Type" value="1" class="form-control" id="inlineFormInputGroup"
+                            placeholder="Question">
                     </div>
                 </div>
 
@@ -64,6 +66,8 @@ $(document).ready(function() {
                         </div>
                         <input type="text" required name="q1" class="form-control" id="inlineFormInputGroup"
                             placeholder="Question">
+                            <input type="hidden" name="q${x}Type" value="2" class="form-control" id="inlineFormInputGroup"
+                            placeholder="Question">
                     </div>
                 </div>
 
@@ -77,7 +81,7 @@ $(document).ready(function() {
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Option</div>
                             </div>
-                            <input type="text" required name="q1o1" class="form-control" id="inlineFormInputGroup"
+                            <input type="text" required name="q${x}o1" class="form-control" id="inlineFormInputGroup"
                                 placeholder="Option1">
                         </div>
                     </div>
@@ -88,7 +92,7 @@ $(document).ready(function() {
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Option</div>
                             </div>
-                            <input type="text" required name="q1o2" class="form-control" id="inlineFormInputGroup"
+                            <input type="text" required name="q${x}o2" class="form-control" id="inlineFormInputGroup"
                                 placeholder="Option2">
                         </div>
                     </div>
@@ -99,7 +103,7 @@ $(document).ready(function() {
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Option</div>
                             </div>
-                            <input type="text" required name="q1o3" class="form-control" id="inlineFormInputGroup"
+                            <input type="text" required name="q${x}o3" class="form-control" id="inlineFormInputGroup"
                                 placeholder="Option3">
                         </div>
                     </div>
@@ -110,7 +114,7 @@ $(document).ready(function() {
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Option</div>
                             </div>
-                            <input type="text" required name="q1o4" class="form-control" id="inlineFormInputGroup"
+                            <input type="text" required name="q${x}o4" class="form-control" id="inlineFormInputGroup"
                                 placeholder="Option4">
                         </div>
                     </div>
