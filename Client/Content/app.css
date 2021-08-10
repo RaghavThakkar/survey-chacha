@@ -171,3 +171,10 @@ input-group-addon:first-child {
     top: -31px;
     display: none;
 }
+
+@media all and (max-width:500px)and(min-width:0px) {
+    body {
+      background-color: rgb(102, 104, 105);
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+  }
