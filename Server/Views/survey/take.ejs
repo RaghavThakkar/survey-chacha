@@ -7,180 +7,32 @@
         <h1 class="text-center mb-2">
           <%= title %>
             <form class="form" method="post" style="margin-bottom:50px;">
+            
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="border-left: 5px solid rgb(114, 114, 114)">
                 <div class="card-body">
                   <h5 class="card-title"><%= data.title %></h5>
                   <h6 class="card-text"><%= data.description %></h6>
                 </div>
               </div>
+            <% for (let count=0; count < data.questions.length; count++) { %>
               <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(44, 235, 162)">
                 <div class="card-body">
-                 <h5 class="card-title"><%=data.questions[0].question%></h5>
-
+                 <h5 class="card-title"><%=data.questions[count].question%></h5>
+           <% for (let optionCount=0; optionCount < data.questions[count].optionsList.length; optionCount++) { %>
                   <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q1Radio" required value=<%= data.questions[0].optionsList[0].option %> class="custom-control-input">
+                    <input type="radio" id="customRadio<%=count+1%>" name="q<%=count+1%>Radio" required value="<%= data.questions[count].optionsList[optionCount].option %>" class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[0].optionsList[0].option %></h6>
+                      <h6><%= data.questions[count].optionsList[optionCount].option %></h6>
                     </label>
                   </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q1Radio" value="<%= data.questions[0].optionsList[1].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[0].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q1Radio" value="<%= data.questions[0].optionsList[2].option %>"  class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[0].optionsList[2].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q1Radio" value="<%= data.questions[0].optionsList[3].option %>"  class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[0].optionsList[3].option %></h6>
-                    </label>
-                  </div>
+                     <% } %>
+               
 
 
                 </div>
               </div>
-
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(46, 202, 230)">
-                <div class="card-body">
-                  <h5 class="card-title"><%=data.questions[1].question%></h5>
-
-
-
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q2Radio"  required value="<%= data.questions[1].optionsList[0].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[1].optionsList[0].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q2Radio"  value="<%= data.questions[1].optionsList[1].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[1].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q2Radio" value="<%= data.questions[1].optionsList[2].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[1].optionsList[2].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q2Radio" value="<%= data.questions[1].optionsList[3].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                       <h6><%= data.questions[1].optionsList[3].option %></h6>
-                    </label>
-                  </div>
-
-
-                </div>
-              </div>
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(57, 101, 244)">
-                <div class="card-body">
-                 <h5 class="card-title"><%=data.questions[2].question%></h5>
-
-
-
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q3Radio" value="<%= data.questions[2].optionsList[0].option %>"  required class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[2].optionsList[0].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q3Radio" value="<%= data.questions[2].optionsList[1].option %>"  class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                     <h6><%= data.questions[2].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q3Radio" value="<%= data.questions[2].optionsList[2].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                     <h6><%= data.questions[2].optionsList[2].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q3Radio" value="<%= data.questions[2].optionsList[3].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[2].optionsList[3].option %></h6>
-                    </label>
-                  </div>
-
-
-                </div>
-              </div>
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(233, 119, 119)">
-                <div class="card-body">
-                   <h5 class="card-title"><%=data.questions[3].question%></h5>
-
-
-
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q4Radio" value="<%= data.questions[3].optionsList[0].option %>" required class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                    <h6><%= data.questions[3].optionsList[0].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q4Radio" value="<%= data.questions[3].optionsList[1].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                        <h6><%= data.questions[3].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q4Radio" value="<%= data.questions[3].optionsList[2].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[3].optionsList[2].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q4Radio" value="<%= data.questions[3].optionsList[3].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                       <h6><%= data.questions[3].optionsList[3].option %></h6>
-                    </label>
-                  </div>
-
-
-                </div>
-              </div>
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(245, 232, 89)">
-                <div class="card-body">
-                  <h5 class="card-title"><%=data.questions[4].question%></h5>
-
-
-                  <div class="custom-control custom-radio">
-                  <input type="radio" id="customRadio1" name="q5Radio" required value="<%= data.questions[4].optionsList[0].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                    <h6><%= data.questions[4].optionsList[0].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                   <input type="radio" id="customRadio1" name="q5Radio"  value="<%= data.questions[4].optionsList[1].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                     <h6><%= data.questions[4].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q5Radio"  value="<%= data.questions[4].optionsList[2].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                      <h6><%= data.questions[4].optionsList[2].option %></h6>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="q5Radio"  value="<%= data.questions[4].optionsList[3].option %>" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">
-                    <h6><%= data.questions[4].optionsList[1].option %></h6>
-                    </label>
-                  </div>
-
-
-                </div>
-              </div>
+   <% } %>
+             
 
               <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
               <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>

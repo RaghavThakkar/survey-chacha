@@ -7,7 +7,7 @@ const router = express.Router();
 export default router;
 
 /* GET home page. wildcard */
-router.get('/', AuthGuard, DisplaySurvey);
+router.get('/', DisplaySurvey);
 router.get('/thanks', AuthGuard, DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
 router.post('/add', AuthGuard, ProcessSurvey);

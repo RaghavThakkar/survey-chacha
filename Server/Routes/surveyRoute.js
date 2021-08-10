@@ -8,7 +8,7 @@ const surveyController_1 = require("../Controllers/surveyController");
 const Util_1 = require("../Util");
 const router = express_1.default.Router();
 exports.default = router;
-router.get('/', Util_1.AuthGuard, surveyController_1.DisplaySurvey);
+router.get('/', surveyController_1.DisplaySurvey);
 router.get('/thanks', Util_1.AuthGuard, surveyController_1.DisplayThankYou);
 router.get('/add', Util_1.AuthGuard, surveyController_1.CreateSurvey);
 router.post('/add', Util_1.AuthGuard, surveyController_1.ProcessSurvey);
