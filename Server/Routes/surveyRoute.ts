@@ -13,6 +13,7 @@ import {
   EditSurvey,
   DisplaySurveyResponse,
   ExportSurveyResponse,
+  AnalyticsSurveyResponse,
 } from '../Controllers/surveyController';
 import { AuthGuard } from '../Util';
 const router = express.Router();
@@ -34,3 +35,4 @@ router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
 
 //export
 router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
+router.get('/response/analytics/:id', AuthGuard, AnalyticsSurveyResponse);

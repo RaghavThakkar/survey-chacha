@@ -114,13 +114,6 @@
   "resolved" "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz"
   "version" "1.3.2"
 
-"@types/moment@^2.13.0":
-  "integrity" "sha1-YE69GJvDvDShVIaJQE5hoqSqyJY="
-  "resolved" "https://registry.npmjs.org/@types/moment/-/moment-2.13.0.tgz"
-  "version" "2.13.0"
-  dependencies:
-    "moment" "*"
-
 "@types/mongodb@*", "@types/mongodb@^3.5.27":
   "integrity" "sha512-JSVFt9p0rTfZ4EgzXmVHUB3ue00xe3CRbQho8nXfImzEDDM4O7I3po1bwbWl/EIbLENxUreZxqLOc8lvcnLVPA=="
   "resolved" "https://registry.npmjs.org/@types/mongodb/-/mongodb-3.6.18.tgz"
@@ -309,6 +302,11 @@
     "escape-string-regexp" "^1.0.5"
     "supports-color" "^5.3.0"
 
+"chart.js@^3.5.0":
+  "integrity" "sha512-J1a4EAb1Gi/KbhwDRmoovHTRuqT8qdF0kZ4XgwxpGethJHUdDrkqyPYwke0a+BuvSeUxPf8Cos6AX2AB8H8GLA=="
+  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.5.0.tgz"
+  "version" "3.5.0"
+
 "color-convert@^1.9.0":
   "integrity" "sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg=="
   "resolved" "https://registry.npmjs.org/color-convert/-/color-convert-1.9.3.tgz"
@@ -384,11 +382,6 @@
     "object-assign" "^4"
     "vary" "^1"
 
-"csv-writer@^1.6.0":
-  "integrity" "sha512-NOx7YDFWEsM/fTRAJjRpPp8t+MKRVvniAg9wQlUKx20MFrPs73WLJhFf5iteqrxNYnsy924K3Iroh3yNHeYd2g=="
-  "resolved" "https://registry.npmjs.org/csv-writer/-/csv-writer-1.6.0.tgz"
-  "version" "1.6.0"
-
 "debug@^4.3.1":
   "integrity" "sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz"
@@ -429,6 +422,11 @@
   "integrity" "sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA="
   "resolved" "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
   "version" "1.0.4"
+
+"domino@^2.1.6":
+  "integrity" "sha512-3VdM/SXBZX2omc9JF9nOPCtDaYQ67BGp5CoLpIQlO2KCAPETs8TcDHacF26jXadGbvUteZzRTeos2fhID5+ucQ=="
+  "resolved" "https://registry.npmjs.org/domino/-/domino-2.1.6.tgz"
+  "version" "2.1.6"
 
 "ee-first@1.1.1":
   "integrity" "sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0="
@@ -705,7 +703,7 @@
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"moment@*", "moment@^2.29.1":
+"moment@^2.29.1":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
