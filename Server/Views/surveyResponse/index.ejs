@@ -1,11 +1,14 @@
 <%- include('../partials/header.ejs'); %>
     <div class="container mt-5">
         <div class="shadow-lg p-3 mb-5 bg-white rounded">
-            <h3 class=" text-center mb-5">Survey Responses
-            </h3>
+            <h3 class=" text-center mb-5">Survey Responses   
+            </h3>  
 
-            </h3> <a href="/survey/response/export/<%= id%>" class="btn btn-success text-center"> <i
-                    class="fas fa-file-export"></i> Export to CSV</a>
+            <a href="/survey/response/export/<%= id%>" class="btn btn-success text-center"> <i
+                class="fas fa-file-export"></i> Export to CSV</a>
+
+            <a href="/survey/response/analytics/<%= id%>" class="btn btn-primary text-center"> <i class="fas fa-chart-pie"></i>
+             Analytics</a>
 
             <div class="row ">
                 <div class="d-flex flex-row justify-content-center">
@@ -18,7 +21,6 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Answers</th>
 
-
                             </tr>
                         </thead>
                         <tbody>
@@ -28,13 +30,11 @@
                                         <%=items[count]._id%>
                                     </th>
                                     <td>
-
-
+                                        <%=items[count].ownerId.displayName%>
                                     </td>
                                     <td>
                                         <%=items[count].questionValue%>
                                     </td>
-
 
                                 </tr>
 

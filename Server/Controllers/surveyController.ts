@@ -13,6 +13,7 @@ import passport from 'passport';
 import User from '../Models/user';
 
 import { UserDisplayName, userId, objectId } from '../Util';
+import { Chart } from 'chart.js';
 
 export async function DisplaySurvey(req: Request, res: Response, next: NextFunction) {
 
@@ -670,6 +671,34 @@ export async function DisplayAnalytics(
       let finalData = [0, 0, 0, 0, 0];
     }
 
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+} export async function AnalyticsSurveyResponse(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    let id = req.params.id;
+    const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate({
+        path: 'ownerId',
+        model: 'User',
+      })
+      .lean()
+      .exec();
+
+    console.log(responses);
+
+    res.render('surveyResponse/analytics', {
+      title: 'analytics',
+      page: 'index',
+      items: responses,
+      id: id,
+      displayName: UserDisplayName(req),
+    });
   } catch (err) {
     console.error(err);
     res.end(err);

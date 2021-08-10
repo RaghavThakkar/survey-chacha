@@ -1,55 +1,69 @@
 <%- include('../partials/header.ejs'); %>
-    <div class="container mt-5">
+  <div class="container mt-5">
     <div class="shadow-lg p-3 mb-5 bg-white rounded">
 
-     <div class="row text-center  mb-5">
-     <div class="d-flex flex-row justify-content-center">
-  <h3>Surveys</h3>
-  <div class="p-2">     </div>
-  <% if(responseCount!=0){ %>
-   <a href="#" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Responses(<%= responseCount%>)</a>
-   <% } %>
-  
-</div>
-       
-       
-     </div>
+      <div class="row text-center  mb-5">
+        <div class="d-flex flex-row justify-content-center">
+          <h3>Surveys</h3>
+          <div class="p-2"> </div>
+          <% if(responseCount!=0){ %>
+            <a href="#" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Responses(<%= responseCount%>)</a>
+            <% } %>
+
+        </div>
+
+
+      </div>
 
       <div class="row text-center">
 
-      <div class="col-xl-3 col-sm-12 mb-2">
-        <div class="card " style="width: 15rem; height: 19rem;" >
-          <div class="card-body">
-    <h5 class="card-title">Create Survey</h5>
+        <div class="col-xl-3 col-sm-6 col-12 mb-2">
+          <div class="card " style="width: 15rem; height: 19rem;">
+            <div class="card-body">
+              <h5 class="card-title">Create Survey</h5>
+            </div>
+            <a href="/survey/add">
+              <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_XyWejw.json" background="transparent"
+                speed="1" style="width: 250px; height: 240px;" loop autoplay></lottie-player>
+            </a>
+          </div>
+        </div>
+        <% for (let count=0; count < items.length; count++) { %>
+
+          <div class="col-xl-3 col-sm-6 col-12 mb-2 ">
+            <div class="card shadow-lg p-3 mb-2 bg-white rounded d-flex justify-content-center flex-column zoom"
+              style="width: 15rem; height: 19rem;">
+
+              <div>
+                <h4>
+                  <%= items[count].title%>
+                </h4>
+              </div>
+              <div><span class="text-muted">State: Active</span></div>
+              <div>
+                <p>
+                  <%= items[count].description%>
+                </p>
+              </div>
+              <a href="/survey/take/<%=items[count]._id%>" class="btn btn-warning mb-2"> Take Survey <i
+                  class="fas fa-arrow-right"></i></a>
+
+              <a href="/survey/edit/<%=items[count]._id%>" class="btn btn-primary mb-2"><i class="fa fa-pen"></i> Edit
+              </a>
+              <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger delete mb-2">Delete <i
+                  class="fa fa-trash"></i> </a>
+              <a href="/survey/response/<%=items[count]._id%>" class="btn btn-success"> <i class="fa fa-table"> Response
+                </i> </a>
+
+            </div>
+          </div>
+
+          <% } %>
+
+
+
       </div>
-      <a href="/survey/add">
-        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_XyWejw.json"  background="transparent"  speed="1"  style="width: 250px; height: 240px;"  loop autoplay></lottie-player>
-         </a>
-    </div>
-      </div>
-  <% for (let count=0; count < items.length; count++) { %>
-
-       <div class="col-xl-3 col-sm-12 mb-2 ">
-        <div class="card shadow-lg p-3 mb-2 bg-white rounded d-flex justify-content-center flex-column zoom" style="width: 15rem; height: 19rem;">
-         
-          <div><h4> <%=   items[count].title%></h4></div>
-          <div><span class="text-muted">State: Active</span></div>
-          <div><p> <%=   items[count].description%></p></div>
-           <a href="/survey/take/<%=items[count]._id%>" class="btn btn-warning mb-2"> Take Survey <i class="fas fa-arrow-right"></i></a>
-           
-             <a href="/survey/edit/<%=items[count]._id%>" class="btn btn-primary mb-2"><i class="fa fa-pen"></i> Edit  </a>
-             <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger delete mb-2">Delete <i class="fa fa-trash"></i> </a>
-           <a href="/survey/response/<%=items[count]._id%>" class="btn btn-success"> <i class="fa fa-table"> Response </i> </a>
-          
-      </div>
-    </div>
-
-   <% } %>
-       
-
-
-    </div>
 
     </div>
   </div>
-<%- include('../partials/footer.ejs'); %>
+  <%- include('../partials/footer.ejs'); %>

@@ -1,412 +1,427 @@
 <%- include('../partials/header.ejs'); %>
 
   <!-- MAIN CONTENT -->
-  <div class="container mb-3 ">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-offset-3 col-md-6">
-        <h1 class="text-center mb-2">
-          <%= title %>
-        </h1>
-        <form class="form" method="post" id="formData" style="margin-bottom:50px;">
+  <div class="container mb-3">
+    <div class="row d-flex">
+    <div class="col-lg-1 col-md-1 img-hide">
+      <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_G5TBf4.json"  background="transparent"  speed="1"  
+       style="width: 400px; height: 400px; position: fixed; top: 20px;"  loop autoplay></lottie-player>
+    </div>
+    <div class="col-lg-11 col-md-11 col-12">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-12">
+          <h1 class="text-center mb-2">
+            <%= title %>
+          </h1>
+          <form class="form" method="post" id="formData" style="margin-bottom:50px;">
 
-          <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
+            <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
 
 
-            <div class="card-body">
-              <h4>Question Type</h4>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="type1" checked
-                  value="option2">
-                <label class="form-check-label" for="inlineRadio1">Multiple Choice</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="type2" value="option1">
-                <label class="form-check-label" for="inlineRadio2">True False</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" hidden type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                  value="option3">
-                <label class="form-check-label" for="inlineRadio3"></label>
-              </div>
-              <h5 class="card-title">Title</h5>
-              <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Title</div>
-                  </div>
-                  <input type="text" required name="title" class="form-control" id="inlineFormInputGroup"
-                    placeholder="Title">
+              <div class="card-body">
+                <h4>Question Type</h4>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="type1" checked
+                    value="option2">
+                  <label class="form-check-label" for="inlineRadio1">Multiple Choice</label>
                 </div>
-              </div>
-
-
-              <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Description</div>
-                  </div>
-                  <input type="text" required name="description" class="form-control" id="inlineFormInputGroup"
-                    placeholder="Description">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="type2" value="option1">
+                  <label class="form-check-label" for="inlineRadio2">True False</label>
                 </div>
-              </div>
-
-              <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Start Date</div>
-                  </div>
-                  <input id="DOBTextField" type="date" name="startDate" class="form-control">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" hidden type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                    value="option3">
+                  <label class="form-check-label" for="inlineRadio3"></label>
                 </div>
-              </div>
-
-              <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">End Date</div>
+                <h5 class="card-title">Title</h5>
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Title</div>
+                    </div>
+                    <input type="text" required name="title" class="form-control" id="inlineFormInputGroup"
+                      placeholder="Title">
                   </div>
-                  <input id="DOBTextField" type="date" name="endDate" class="form-control">
                 </div>
-              </div>
 
-              <div class="form-check">
-                <input class="form-check-input" name="active" checked type="checkbox" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Active
-                </label>
-              </div>
 
-              <div class="form-check">
-                <input class="form-check-input" name="requiredLogin" checked type="checkbox" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Required Login
-                </label>
-              </div>
-
-            </div>
-          </div>
-          <div id="tempContainer">
-            <div id="questionType">
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
-                <div class="card-body">
-                  <h5 class="card-title">Question 1</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Question1</div>
-                      </div>
-                      <input type="text" required name="q1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Question">
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Description</div>
                     </div>
+                    <input type="text" required name="description" class="form-control" id="inlineFormInputGroup"
+                      placeholder="Description">
                   </div>
-
-                  <h5 class="card-title">Options</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q1o1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option1">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q1o2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option2">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q1o3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option3">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q1o4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option4">
-                    </div>
-                  </div>
-
                 </div>
-              </div>
 
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(47, 227, 119)">
-                <div class="card-body">
-                  <h5 class="card-title">Question 2</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Question1</div>
-                      </div>
-                      <input type="text" required name="q2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Question">
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Start Date</div>
                     </div>
+                    <input id="DOBTextField" type="date" name="startDate" class="form-control">
                   </div>
-
-                  <h5 class="card-title">Options</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q2o1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option1">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q2o2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option2">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q2o3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option3">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q2o4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option4">
-                    </div>
-                  </div>
-
                 </div>
-              </div>
 
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(24, 139, 181)">
-                <div class="card-body">
-                  <h5 class="card-title">Question 3</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Question1</div>
-                      </div>
-                      <input type="text" required name="q3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Question">
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">End Date</div>
                     </div>
+                    <input id="DOBTextField" type="date" name="endDate" class="form-control">
                   </div>
-
-                  <h5 class="card-title">Options</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q3o1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option1">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q3o2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option2">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q3o3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option3">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q3o4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option4">
-                    </div>
-                  </div>
-
                 </div>
-              </div>
 
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(99, 70, 247)">
-                <div class="card-body">
-                  <h5 class="card-title">Question</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Question1</div>
-                      </div>
-                      <input type="text" required name="q4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Question">
-                    </div>
-                  </div>
-
-                  <h5 class="card-title">Options 4</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q4o1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option1">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q4o2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option2">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q4o3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option3">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q4o4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option4">
-                    </div>
-                  </div>
-
+                <div class="form-check">
+                  <input class="form-check-input" name="active" checked type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Active
+                  </label>
                 </div>
-              </div>
 
-              <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(52, 214, 232)">
-                <div class="card-body">
-                  <h5 class="card-title">Question 5</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Question1</div>
-                      </div>
-                      <input type="text" required name="q5" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Question">
-                    </div>
-                  </div>
-
-                  <h5 class="card-title">Options</h5>
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q5o1" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option1">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q5o2" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option2">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q5o3" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option3">
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup"></label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Option</div>
-                      </div>
-                      <input type="text" required name="q5o4" class="form-control" id="inlineFormInputGroup"
-                        placeholder="Option4">
-                    </div>
-                  </div>
-
+                <div class="form-check">
+                  <input class="form-check-input" name="requiredLogin" checked type="checkbox" value=""
+                    id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Required Login
+                  </label>
                 </div>
+
               </div>
             </div>
-          </div>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
-          <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
-        </form>
+            <div id="tempContainer">
+              <div id="questionType">
+                <div class="card shadow-lg p-3 mb-2 bg-white rounded"
+                  style="  border-left: 5px solid rgb(114, 114, 114)">
+                  <div class="card-body">
+                    <h5 class="card-title">Question 1</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Question1</div>
+                        </div>
+                        <input type="text" required name="q1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Question">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Options</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q1o1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option1">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q1o2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option2">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q1o3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option3">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q1o4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option4">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card shadow-lg p-3 mb-2 bg-white rounded"
+                  style="  border-left: 5px solid rgb(47, 227, 119)">
+                  <div class="card-body">
+                    <h5 class="card-title">Question 2</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Question1</div>
+                        </div>
+                        <input type="text" required name="q2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Question">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Options</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q2o1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option1">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q2o2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option2">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q2o3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option3">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q2o4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option4">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card shadow-lg p-3 mb-2 bg-white rounded"
+                  style="  border-left: 5px solid rgb(24, 139, 181)">
+                  <div class="card-body">
+                    <h5 class="card-title">Question 3</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Question1</div>
+                        </div>
+                        <input type="text" required name="q3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Question">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Options</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q3o1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option1">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q3o2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option2">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q3o3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option3">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q3o4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option4">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(99, 70, 247)">
+                  <div class="card-body">
+                    <h5 class="card-title">Question</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Question1</div>
+                        </div>
+                        <input type="text" required name="q4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Question">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Options 4</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q4o1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option1">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q4o2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option2">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q4o3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option3">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q4o4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option4">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card shadow-lg p-3 mb-2 bg-white rounded"
+                  style="  border-left: 5px solid rgb(52, 214, 232)">
+                  <div class="card-body">
+                    <h5 class="card-title">Question 5</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Question1</div>
+                        </div>
+                        <input type="text" required name="q5" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Question">
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Options</h5>
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q5o1" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option1">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q5o2" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option2">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q5o3" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option3">
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Option</div>
+                        </div>
+                        <input type="text" required name="q5o4" class="form-control" id="inlineFormInputGroup"
+                          placeholder="Option4">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+            <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+          </form>
+        </div>
+
       </div>
+
 
     </div>
   </div>
+</div>
 
   <%- include('../partials/footer.ejs'); %>
