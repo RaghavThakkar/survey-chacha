@@ -21,7 +21,7 @@ export default router;
 
 /* GET home page. wildcard */
 router.get('/', DisplaySurvey);
-router.get('/thanks/:id', DisplayThankYou);
+router.get('/thanks', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
 router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);

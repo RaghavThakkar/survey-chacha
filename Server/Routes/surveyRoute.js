@@ -9,7 +9,7 @@ const Util_1 = require("../Util");
 const router = express_1.default.Router();
 exports.default = router;
 router.get('/', surveyController_1.DisplaySurvey);
-router.get('/thanks/:id', surveyController_1.DisplayThankYou);
+router.get('/thanks', surveyController_1.DisplayThankYou);
 router.get('/add', Util_1.AuthGuard, surveyController_1.CreateSurvey);
 router.post('/add', Util_1.AuthGuard, surveyController_1.ProcessSurvey);
 router.get('/delete/:id', Util_1.AuthGuard, surveyController_1.DeleteSurvey);

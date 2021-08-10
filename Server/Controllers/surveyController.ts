@@ -79,26 +79,6 @@ export async function ProcessDF(req: Request, res: Response, next: NextFunction)
 
 export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
   try {
-    console.log(req.params.id)
-    let id = req.params.id;
-
-    const item = await Survey.findOne({ _id: id }).populate({
-      path: 'questions',
-      model: 'Question',
-      populate: {
-        path: 'optionsList',
-        model: 'Option',
-
-      }
-    }).exec();
-    if (item.isPublic) {
-      if (!req.isAuthenticated()) {
-        return res.redirect('/login');
-      }
-      next();
-
-      return;
-    }
     res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
   } catch (err) {
     console.error(err);
@@ -111,7 +91,7 @@ export async function DisplayThankYou(req: Request, res: Response, next: NextFun
 export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
   try {
 
-    console.log(req.params.id)
+
     let id = req.params.id;
 
     const item = await Survey.findOne({ _id: id }).populate({
@@ -124,13 +104,9 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
       }
     }).exec();
 
-    if (item.isPublic) {
-      if (!req.isAuthenticated()) {
-        return res.redirect('/login');
-      }
-      next();
-
-      return;
+    if (item.isPublic && !req.isAuthenticated()) {
+      res.redirect('/login');
+      return
     }
     res.render('survey/take',
       {
@@ -148,14 +124,10 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
   try {
     let id = req.params.id;
     const survey = await Survey.findOne({ _id: id }).exec();
-    console.log(survey);
-    if (survey.isPublic) {
-      if (!req.isAuthenticated()) {
-        return res.redirect('/login');
-      }
-      next();
 
-      return;
+    if (survey.isPublic && !req.isAuthenticated()) {
+      res.redirect('/login');
+      return
     }
     const surveyresponse = new SurveyResponse(
       {
@@ -166,7 +138,7 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
     );
 
     const q1o1 = await SurveyResponse.create(surveyresponse);
-    res.redirect('/survey/thanks/' + id);
+    res.redirect('/survey/thanks');
   } catch (err) {
     console.error(err);
     res.end(err);
