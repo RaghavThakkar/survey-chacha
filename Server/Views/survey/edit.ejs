@@ -9,8 +9,7 @@
           
         </h1>
         <form class="form" method="post" style="margin-bottom:50px;">
-
-          <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
+            <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
             <div class="card-body">
           
               <div class="col-auto">
@@ -65,6 +64,9 @@
 
             </div>
           </div>
+         <div id="questionType">
+ <% if(data.type==2){ %>
+      
           <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
             <div class="card-body">
               <h5 class="card-title">Question 1</h5>
@@ -374,7 +376,34 @@
 
             </div>
           </div>
+    <% } else{%>
+    
 
+      <% for (let count=0; count < data.questions.length; count++) { %>
+            <div class="card shadow-lg p-3 mb-2 bg-white rounded" style="  border-left: 5px solid rgb(114, 114, 114)">
+              <div class="card-body">
+                <h5 class="card-title">Question 1</h5>
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Question<%=count+1%></div>
+                    </div>
+                    <input type="text" required name="q<%=count+1%>" value="<%=data.questions[count].question%>" class="form-control" id="inlineFormInputGroup"
+                      placeholder="Question">
+                  </div>
+                </div>
+              </div>
+            </div>
+  <% } %>
+        
+
+          
+
+           
+         
+          </div>
+        <% } %>
           <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
           <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
         </form>
