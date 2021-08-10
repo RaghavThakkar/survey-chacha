@@ -82,6 +82,8 @@ export async function DisplayThankYou(req: Request, res: Response, next: NextFun
 
 export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
   try {
+
+    console.log(req.params.id)
     let id = req.params.id;
 
     const item = await Survey.findOne({ _id: id }).populate({
@@ -457,11 +459,24 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
 export async function DisplaySurveyResponse(req: Request, res: Response, next: NextFunction) {
   try {
     let id = req.params.id;
-    const responses = await SurveyResponse.find({ "survey": objectId(id) }).populate({
-      path: 'ownerId',
-      model: 'User',
+    const responses = await SurveyResponse.find({ "survey": objectId(id) })
+      .populate({
+        path: 'ownerId',
+        model: 'User',
+      })
+      .populate({
+        path: 'survey',
+        model: 'Survey',
+        populate: {
+          path: 'questions',
+          model: 'Question',
+          populate: {
+            path: 'optionsList',
+            model: 'Option',
 
-    }).lean().exec();
+          }
+        }
+      }).lean().exec();
 
     console.log(responses);
     res.render('surveyResponse/index', {
@@ -487,13 +502,27 @@ export async function ExportSurveyResponse(
   try {
     let id = req.params.id;
     const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate(
+        {
+          path: 'survey',
+          model: 'Survey',
+          populate: {
+            path: 'questions',
+            model: 'Question',
+            populate: {
+              path: 'optionsList',
+              model: 'Option',
+
+            }
+          }
+        })
       .populate({
         path: 'ownerId',
         model: 'User',
       })
       .lean()
       .exec();
-
+    //console.log("$$$$$$$$$$" + responses.survey.questions[0].question);
     makeCsvFile(responses, res);
   } catch (err) {
     console.error(err);
@@ -502,21 +531,32 @@ export async function ExportSurveyResponse(
 }
 
 const makeCsvFile = (data: any, res: any) => {
+
+
   const createCsvWriter = require('csv-writer').createObjectCsvWriter;
   const csvWriter = createCsvWriter({
     path: './Client/Assets/csv/data.csv',
     header: [
-      { id: 'id', title: 'ID' },
+
       { id: 'name', title: 'Name' },
-      { id: 'value', title: 'Resnpose' },
+      { id: 'q1', title: data[0].survey.questions[0].question },
+      { id: 'q2', title: data[0].survey.questions[1].question },
+      { id: 'q3', title: data[0].survey.questions[2].question },
+      { id: 'q4', title: data[0].survey.questions[3].question },
+      { id: 'q5', title: data[0].survey.questions[4].question },
     ],
   });
 
+
+
   const result = data.map((d: any) => {
     return {
-      id: d._id,
       name: d.ownerId.displayName,
-      value: d.questionValue,
+      q1: d.questionValue[0],
+      q2: d.questionValue[1],
+      q3: d.questionValue[2],
+      q4: d.questionValue[3],
+      q5: d.questionValue[4],
     };
   });
   csvWriter
