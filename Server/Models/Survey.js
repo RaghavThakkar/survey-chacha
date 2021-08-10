@@ -34,6 +34,10 @@ const SurveySchema = new Schema({
     description: {
         type: String,
         default: ''
+    }, type: {
+        type: String,
+        enum: ['1', '2', '3'],
+        default: '2'
     }
 }, {
     collection: 'surveys'

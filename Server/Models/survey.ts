@@ -37,6 +37,14 @@ const SurveySchema = new Schema
         description: {
             type: String,
             default: ''
+        }, type: {
+            //1 yes no
+            //2 multiple choice,
+            //3 simple question and ans
+
+            type: String,
+            enum: ['1', '2', '3'],
+            default: '2'
         }
     },
         {
