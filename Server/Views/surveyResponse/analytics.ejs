@@ -6,6 +6,35 @@
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <canvas id="myChart" width="400" height="400" ></canvas>
+                <input type="hidden" id="chartdata" value="<%= items %>"/>
+                 <div class="p-2"> </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Answers</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let count=0; count < items.length; count++) { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%=items[count]._id%>
+                                    </th>
+                                    <td>
+                                        <%=items[count].ownerId.displayName%>
+                                    </td>
+                                    <td>
+                                        <%=items[count].questionValue%>
+                                    </td>
+
+                                </tr>
+
+                                <% } %>
+                        </tbody>
+                    </table>
               </div>
             </div>
 
