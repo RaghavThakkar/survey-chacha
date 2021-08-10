@@ -1,8 +1,20 @@
 // modules required for routing
 import express from 'express';
 
-import { DisplaySurvey, CreateSurvey, ProcessEditSurvey, ProcessSurvey, DeleteSurvey, TakeSurvey, ProcessTakeSurvey, DisplayThankYou, EditSurvey, DisplaySurveyResponse, ExportSurveyResponse } from '../Controllers/surveyController';
-import { AuthGuard } from '../Util'
+import {
+  DisplaySurvey,
+  CreateSurvey,
+  ProcessEditSurvey,
+  ProcessSurvey,
+  DeleteSurvey,
+  TakeSurvey,
+  ProcessTakeSurvey,
+  DisplayThankYou,
+  EditSurvey,
+  DisplaySurveyResponse,
+  ExportSurveyResponse,
+} from '../Controllers/surveyController';
+import { AuthGuard } from '../Util';
 const router = express.Router();
 export default router;
 
@@ -20,6 +32,5 @@ router.post('/take/:id', AuthGuard, ProcessTakeSurvey);
 router.get('/response/:id', AuthGuard, DisplaySurveyResponse);
 router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
 
-
 //export
-//router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
+router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);

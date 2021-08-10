@@ -1,18 +1,18 @@
 import { Console } from 'console';
 import express, { Request, Response, NextFunction } from 'express';
-import mongodb = require("mongodb");
+import mongodb = require('mongodb');
 import Survey from '../Models/Survey';
 import Option from '../Models/Option';
 import moment from 'moment';
 import Question from '../Models/questions';
 import SurveyResponse from '../Models/SurveyResponse';
-import { promises as fs } from "fs";
+import { promises as fs } from 'fs';
 //import Parser from "json2csv";
 import passport from 'passport';
 
 import User from '../Models/user';
 
-import { UserDisplayName, userId, objectId } from '../Util'
+import { UserDisplayName, userId, objectId } from '../Util';
 
 export async function DisplaySurvey(req: Request, res: Response, next: NextFunction) {
 
@@ -60,8 +60,7 @@ export async function DF(req: Request, res: Response, next: NextFunction) {
 export async function ProcessDF(req: Request, res: Response, next: NextFunction) {
   try {
     console.log(req.body);
-    console.log(req.body['q2Type']);
-
+    console.log(req.body['q1']);
     console.log(req.body['q2']);
     res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
   } catch (err) {
@@ -478,60 +477,53 @@ export async function DisplaySurveyResponse(req: Request, res: Response, next: N
     res.end(err);
   }
 
-
 }
 
-// export async function ExportSurveyResponse(req: Request, res: Response, next: NextFunction) {
-//     try {
-//         let id = req.params.id;
-//         const responses = await SurveyResponse.find({ "survey": objectId(id) }).populate({
-//             path: 'ownerId',
-//             model: 'User',
+export async function ExportSurveyResponse(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    let id = req.params.id;
+    const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate({
+        path: 'ownerId',
+        model: 'User',
+      })
+      .lean()
+      .exec();
 
-//         }).lean().exec();
+    makeCsvFile(responses, res);
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
 
-//         var data = [
-//             {
-//                 name: 'Test 1',
-//                 age: 13,
-//                 average: 8.2,
-//                 approved: true,
-//                 description: "using 'Content here, content here' "
-//             },
-//             {
-//                 name: 'Test 2',
-//                 age: 11,
-//                 average: 8.2,
-//                 approved: true,
-//                 description: "using 'Content here, content here' "
-//             },
-//             {
-//                 name: 'Test 4',
-//                 age: 10,
-//                 average: 8.2,
-//                 approved: true,
-//                 description: "using 'Content here, content here' "
-//             },
-//         ];
+const makeCsvFile = (data: any, res: any) => {
+  const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+  const csvWriter = createCsvWriter({
+    path: './Client/Assets/csv/data.csv',
+    header: [
+      { id: 'id', title: 'ID' },
+      { id: 'name', title: 'Name' },
+      { id: 'value', title: 'Resnpose' },
+    ],
+  });
 
-//         const fields = Object.keys(data[0]);
-//         const csv = new Parser(fields);
+  const result = data.map((d: any) => {
+    return {
+      id: d._id,
+      name: d.ownerId.displayName,
+      value: d.questionValue,
+    };
+  });
+  csvWriter
+    .writeRecords(result) // returns a promise
+    .then(() => {
+      console.log(' Succefully export to csv');
+      res.download('./Client/Assets/csv/data.csv');
+    });
+};
 
-//         const fileData = await fs.writeFile("data.csv", csv.parse(data));
-
-//         console.log(responses);
-//         res.render('surveyResponse/index', {
-//             title: 'list-survey',
-//             page: 'index',
-//             items: responses,
-//             id: id,
-//             displayName: UserDisplayName(req)
-//         });
-
-//     } catch (err) {
-//         console.error(err);
-//         res.end(err);
-//     }
-
-
-// }

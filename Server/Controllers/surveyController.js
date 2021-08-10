@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const moment_1 = __importDefault(require("moment"));
@@ -68,7 +68,7 @@ function ProcessDF(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(req.body);
-            console.log(req.body['q2Type']);
+            console.log(req.body['q1']);
             console.log(req.body['q2']);
             res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
         }
@@ -422,4 +422,48 @@ function DisplaySurveyResponse(req, res, next) {
     });
 }
 exports.DisplaySurveyResponse = DisplaySurveyResponse;
+function ExportSurveyResponse(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            const responses = yield SurveyResponse_1.default.find({ survey: Util_1.objectId(id) })
+                .populate({
+                path: 'ownerId',
+                model: 'User',
+            })
+                .lean()
+                .exec();
+            makeCsvFile(responses, res);
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ExportSurveyResponse = ExportSurveyResponse;
+const makeCsvFile = (data, res) => {
+    const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+    const csvWriter = createCsvWriter({
+        path: './Client/Assets/csv/data.csv',
+        header: [
+            { id: 'id', title: 'ID' },
+            { id: 'name', title: 'Name' },
+            { id: 'value', title: 'Resnpose' },
+        ],
+    });
+    const result = data.map((d) => {
+        return {
+            id: d._id,
+            name: d.ownerId.displayName,
+            value: d.questionValue,
+        };
+    });
+    csvWriter
+        .writeRecords(result)
+        .then(() => {
+        console.log(' Succefully export to csv');
+        res.download('./Client/Assets/csv/data.csv');
+    });
+};
 //# sourceMappingURL=surveyController.js.map
