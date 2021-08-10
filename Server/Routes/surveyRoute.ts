@@ -21,14 +21,14 @@ export default router;
 
 /* GET home page. wildcard */
 router.get('/', DisplaySurvey);
-router.get('/thanks', AuthGuard, DisplayThankYou);
+router.get('/thanks/:id', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
 router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
 router.get('/edit/:id', AuthGuard, EditSurvey);
 router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
-router.get('/take/:id', AuthGuard, TakeSurvey);
-router.post('/take/:id', AuthGuard, ProcessTakeSurvey);
+router.get('/take/:id', TakeSurvey);
+router.post('/take/:id', ProcessTakeSurvey);
 
 router.get('/response/:id', AuthGuard, DisplaySurveyResponse);
 router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
