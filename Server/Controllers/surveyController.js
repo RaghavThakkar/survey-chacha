@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const moment_1 = __importDefault(require("moment"));
@@ -22,7 +22,14 @@ const Util_1 = require("../Util");
 function DisplaySurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const surveyList = yield Survey_1.default.find().exec();
+            const surveyList = yield Survey_1.default.find({
+                "startDate": {
+                    $lte: new Date()
+                },
+                "endDate": {
+                    $gte: new Date(),
+                }
+            }).lean().exec();
             const surveyResponse = yield SurveyResponse_1.default.count().exec();
             console.log(surveyList);
             res.render('survey/index', {
@@ -82,6 +89,23 @@ exports.ProcessDF = ProcessDF;
 function DisplayThankYou(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(req.params.id);
+            let id = req.params.id;
+            const item = yield Survey_1.default.findOne({ _id: id }).populate({
+                path: 'questions',
+                model: 'Question',
+                populate: {
+                    path: 'optionsList',
+                    model: 'Option',
+                }
+            }).exec();
+            if (item.isPublic) {
+                if (!req.isAuthenticated()) {
+                    return res.redirect('/login');
+                }
+                next();
+                return;
+            }
             res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {
@@ -104,7 +128,13 @@ function TakeSurvey(req, res, next) {
                     model: 'Option',
                 }
             }).exec();
-            console.log("hello");
+            if (item.isPublic) {
+                if (!req.isAuthenticated()) {
+                    return res.redirect('/login');
+                }
+                next();
+                return;
+            }
             res.render('survey/take', {
                 title: 'Take Survey',
                 page: 'index',
@@ -124,13 +154,21 @@ function ProcessTakeSurvey(req, res, next) {
         try {
             let id = req.params.id;
             const survey = yield Survey_1.default.findOne({ _id: id }).exec();
+            console.log(survey);
+            if (survey.isPublic) {
+                if (!req.isAuthenticated()) {
+                    return res.redirect('/login');
+                }
+                next();
+                return;
+            }
             const surveyresponse = new SurveyResponse_1.default({
                 questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
                 survey: survey,
                 ownerId: req.user
             });
             const q1o1 = yield SurveyResponse_1.default.create(surveyresponse);
-            res.redirect('/survey/thanks');
+            res.redirect('/survey/thanks/' + id);
         }
         catch (err) {
             console.error(err);
@@ -274,6 +312,22 @@ exports.ProcessEditSurvey = ProcessEditSurvey;
 function ProcessSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            let requiredLoginValue = req.body['requiredLogin'];
+            let requiredLogin = true;
+            if (requiredLoginValue) {
+                requiredLogin = true;
+            }
+            else {
+                requiredLogin = false;
+            }
+            let activeValue = req.body['active'];
+            let active = true;
+            if (activeValue) {
+                active = true;
+            }
+            else {
+                active = false;
+            }
             if (req.body.inlineRadioOptions === "option1") {
                 const q1o1 = yield Option_1.default.create(new Option_1.default({ option: 'True' }));
                 const q1o2 = yield Option_1.default.create(new Option_1.default({ option: 'False' }));
@@ -317,9 +371,10 @@ function ProcessSurvey(req, res, next) {
                 const newQ5 = yield questions_1.default.create(q5);
                 const survey = new Survey_1.default({
                     questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
-                    active: true,
+                    active: active,
                     userId: req.user,
                     type: "1",
+                    isPublic: requiredLogin,
                     startDate: new Date(req.body.startDate),
                     endDate: new Date(req.body.endDate),
                     title: req.body.title,
@@ -380,9 +435,10 @@ function ProcessSurvey(req, res, next) {
                 const newQ5 = yield questions_1.default.create(q5);
                 const survey = new Survey_1.default({
                     questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
-                    active: true,
+                    active: active,
                     userId: req.user,
                     type: '2',
+                    isPublic: requiredLogin,
                     startDate: new Date(req.body.startDate),
                     endDate: new Date(req.body.endDate),
                     title: req.body.title,
@@ -473,7 +529,6 @@ const makeCsvFile = (data, res) => {
     const csvWriter = createCsvWriter({
         path: './Client/Assets/csv/data.csv',
         header: [
-            { id: 'name', title: 'Name' },
             { id: 'q1', title: data[0].survey.questions[0].question },
             { id: 'q2', title: data[0].survey.questions[1].question },
             { id: 'q3', title: data[0].survey.questions[2].question },
@@ -483,7 +538,6 @@ const makeCsvFile = (data, res) => {
     });
     const result = data.map((d) => {
         return {
-            name: d.ownerId.displayName,
             q1: d.questionValue[0],
             q2: d.questionValue[1],
             q3: d.questionValue[2],
@@ -498,4 +552,41 @@ const makeCsvFile = (data, res) => {
         res.download('./Client/Assets/csv/data.csv');
     });
 };
+function DisplayAnalytics(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            const responses = yield SurveyResponse_1.default.find({ survey: Util_1.objectId(id) })
+                .populate({
+                path: 'survey',
+                model: 'Survey',
+                populate: {
+                    path: 'questions',
+                    model: 'Question',
+                    populate: {
+                        path: 'optionsList',
+                        model: 'Option',
+                    }
+                }
+            })
+                .populate({
+                path: 'ownerId',
+                model: 'User',
+            })
+                .lean()
+                .exec();
+            if (responses[0].survey.type === "1") {
+                let finalData = [0, 0];
+            }
+            else {
+                let finalData = [0, 0, 0, 0, 0];
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayAnalytics = DisplayAnalytics;
 //# sourceMappingURL=surveyController.js.map

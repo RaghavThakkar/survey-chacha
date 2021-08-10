@@ -18,10 +18,17 @@ export async function DisplaySurvey(req: Request, res: Response, next: NextFunct
 
   try {
 
-
     //const surveyList = await Survey.find().lean().exec();
-    //const surveyList = await Survey.find({ "userId": objectId(userId(req)) }).lean().exec();
-    const surveyList = await Survey.find().exec();
+    const surveyList = await Survey.find(
+      {
+        "startDate": {
+          $lte: new Date()
+        },
+        "endDate": {
+          $gte: new Date(),
+        }
+      }).lean().exec();
+    //const surveyList = await Survey.find().exec();
     const surveyResponse = await SurveyResponse.count().exec();
     console.log(surveyList);
     res.render('survey/index', {
@@ -71,6 +78,26 @@ export async function ProcessDF(req: Request, res: Response, next: NextFunction)
 
 export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
   try {
+    console.log(req.params.id)
+    let id = req.params.id;
+
+    const item = await Survey.findOne({ _id: id }).populate({
+      path: 'questions',
+      model: 'Question',
+      populate: {
+        path: 'optionsList',
+        model: 'Option',
+
+      }
+    }).exec();
+    if (item.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
+
+      return;
+    }
     res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
   } catch (err) {
     console.error(err);
@@ -95,7 +122,15 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
 
       }
     }).exec();
-    console.log("hello");
+
+    if (item.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
+
+      return;
+    }
     res.render('survey/take',
       {
         title: 'Take Survey',
@@ -112,6 +147,15 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
   try {
     let id = req.params.id;
     const survey = await Survey.findOne({ _id: id }).exec();
+    console.log(survey);
+    if (survey.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
+
+      return;
+    }
     const surveyresponse = new SurveyResponse(
       {
         questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
@@ -121,7 +165,7 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
     );
 
     const q1o1 = await SurveyResponse.create(surveyresponse);
-    res.redirect('/survey/thanks');
+    res.redirect('/survey/thanks/' + id);
   } catch (err) {
     console.error(err);
     res.end(err);
@@ -291,7 +335,25 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
   try {
 
 
+    let requiredLoginValue = req.body['requiredLogin']; // This will have one of two values, 'undefined' if it wasn't checked, or 'on' if it is checked
 
+    let requiredLogin = true;
+
+    if (requiredLoginValue) {
+      requiredLogin = true;
+    } else {
+      requiredLogin = false;
+    }
+
+    let activeValue = req.body['active']; // This will have one of two values, 'undefined' if it wasn't checked, or 'on' if it is checked
+
+    let active = true;
+
+    if (activeValue) {
+      active = true;
+    } else {
+      active = false;
+    }
 
     if (req.body.inlineRadioOptions === "option1") {
 
@@ -350,9 +412,10 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
 
       const survey = new Survey({
         questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
-        active: true,
+        active: active,
         userId: req.user,
         type: "1",
+        isPublic: requiredLogin,
         startDate: new Date(req.body.startDate),
         endDate: new Date(req.body.endDate),
         title: req.body.title,
@@ -428,9 +491,10 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
 
       const survey = new Survey({
         questions: [newQ1, newQ2, newQ3, newQ4, newQ5],
-        active: true,
+        active: active,
         userId: req.user,
         type: '2',
+        isPublic: requiredLogin,
         startDate: new Date(req.body.startDate),
         endDate: new Date(req.body.endDate),
         title: req.body.title,
@@ -538,7 +602,7 @@ const makeCsvFile = (data: any, res: any) => {
     path: './Client/Assets/csv/data.csv',
     header: [
 
-      { id: 'name', title: 'Name' },
+
       { id: 'q1', title: data[0].survey.questions[0].question },
       { id: 'q2', title: data[0].survey.questions[1].question },
       { id: 'q3', title: data[0].survey.questions[2].question },
@@ -551,7 +615,7 @@ const makeCsvFile = (data: any, res: any) => {
 
   const result = data.map((d: any) => {
     return {
-      name: d.ownerId.displayName,
+
       q1: d.questionValue[0],
       q2: d.questionValue[1],
       q3: d.questionValue[2],
@@ -567,3 +631,47 @@ const makeCsvFile = (data: any, res: any) => {
     });
 };
 
+
+
+
+export async function DisplayAnalytics(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    let id = req.params.id;
+    const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate(
+        {
+          path: 'survey',
+          model: 'Survey',
+          populate: {
+            path: 'questions',
+            model: 'Question',
+            populate: {
+              path: 'optionsList',
+              model: 'Option',
+
+            }
+          }
+        })
+      .populate({
+        path: 'ownerId',
+        model: 'User',
+      })
+      .lean()
+      .exec();
+
+    if (responses[0].survey.type === "1") {
+      let finalData = [0, 0];
+
+    } else {
+      let finalData = [0, 0, 0, 0, 0];
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
