@@ -170,6 +170,11 @@ input-group-addon:first-child {
     top: -31px;
     display: none;
 }
+@media all and (max-width:1000px) {
+    .img-hide{
+        display: none;
+    }
+}
 
 @media all and (max-width:600px) {
     body {
@@ -182,4 +187,5 @@ input-group-addon:first-child {
     .small-index{
         margin-top: 40px;
     }
+    
   }
