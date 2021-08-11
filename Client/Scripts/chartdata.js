@@ -4,18 +4,29 @@ $(document).ready(function() {
 
 const pieChartData = async() => {
     let canvas = document.getElementById('myChart');
-    let labels = ['Africa', 'Asia', 'Europe', 'Latin America', 'North America'];
-    let data = [2478, 5267, 734, 784, 433];
+    let canvas1 = document.getElementById('myChart1');
+    let canvas2= document.getElementById('myChart2');
+    let canvas3 = document.getElementById('myChart3');
+    let canvas4= document.getElementById('myChart4');
+    
+   
 
     let chart = document.getElementById('chartdata');
-    let chartValue = chart.value;
-
-    for (let count = 0; count < chartValue.length; count++) {
-        console.log(chartValue[count]);
-    }
-    console.log(chartValue[0]);
+    let chartValue = chart.value.split(",");
+  
+  
 
     // DrawPieChart(canvas);
+    drawChart(canvas, chartValue[0],chartValue[1]);
+    drawChart(canvas1, chartValue[2],chartValue[3]);
+    drawChart(canvas2, chartValue[4],chartValue[5]);
+    drawChart(canvas3, chartValue[6],chartValue[7]);
+    drawChart(canvas4, chartValue[8],chartValue[9]);
+    
+};
+
+function drawChart(canvas, data1,data2) {
+    let labels = ['True', 'False'];
     new Chart(canvas, {
         type: 'pie',
         data: {
@@ -23,14 +34,11 @@ const pieChartData = async() => {
             datasets: [{
                 label: ' Survey Response',
                 backgroundColor: [
-                    '#3e95cd',
-                    '#8e5ea2',
-                    '#3cba9f',
-                    '#e8c3b9',
-                    '#c45850',
+                    '#00ff00',
+                    '#ff0000'
                 ],
-                data: data,
-            }, ],
+                data: [data1, data2],
+            },],
         },
     });
-};
+}

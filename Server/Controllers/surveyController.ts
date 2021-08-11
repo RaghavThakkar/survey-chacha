@@ -8,6 +8,7 @@ import Question from '../Models/questions';
 import SurveyResponse from '../Models/SurveyResponse';
 import { promises as fs } from 'fs';
 //import Parser from "json2csv";
+var chunk = require('lodash.chunk');
 import passport from 'passport';
 
 import User from '../Models/user';
@@ -647,7 +648,9 @@ export async function DisplayAnalytics(
     console.error(err);
     res.end(err);
   }
-} export async function AnalyticsSurveyResponse(
+}
+
+export async function AnalyticsSurveyResponse(
   req: Request,
   res: Response,
   next: NextFunction
@@ -655,6 +658,20 @@ export async function DisplayAnalytics(
   try {
     let id = req.params.id;
     const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate(
+        {
+          path: 'survey',
+          model: 'Survey',
+          populate: {
+            path: 'questions',
+            model: 'Question',
+            populate: {
+              path: 'optionsList',
+              model: 'Option',
+
+            }
+          }
+        })
       .populate({
         path: 'ownerId',
         model: 'User',
@@ -662,13 +679,79 @@ export async function DisplayAnalytics(
       .lean()
       .exec();
 
-    console.log(responses);
+    const result = responses.map((d: any) => {
+      return {
+
+        q1: d.questionValue[0],
+        q2: d.questionValue[1],
+        q3: d.questionValue[2],
+        q4: d.questionValue[3],
+        q5: d.questionValue[4],
+      };
+    });
+    let data = [0, 0,
+      0, 0,
+      0, 0,
+      0, 0,
+      0, 0];
+    if (responses[0].survey.type === "1") {
+      data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].q1 == 'True') {
+          data[0]++;
+        } else {
+          data[1]++;
+        }
+
+        if (result[i].q2 == 'True') {
+          data[2]++;
+        } else {
+          data[3]++;
+        }
+
+        if (result[i].q3 == 'True') {
+          data[4]++;
+        } else {
+          data[5]++;
+        }
+
+        if (result[i].q4 == 'True') {
+          data[6]++;
+        } else {
+          data[7]++;
+        }
+
+        if (result[i].q5 == 'True') {
+          data[8]++;
+        } else {
+          data[9]++;
+        }
+
+      }
+    } else {
+      data = [0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0];
+    }
+
+
+
+
 
     res.render('surveyResponse/analytics', {
       title: 'analytics',
       page: 'index',
-      items: responses,
+      items: JSON.stringify(responses),
       id: id,
+      data: data,
+      questions: [responses[0].survey.questions[0].question,
+      responses[0].survey.questions[1].question,
+      responses[0].survey.questions[2].question,
+      responses[0].survey.questions[3].question,
+      responses[0].survey.questions[4].question]
       displayName: UserDisplayName(req),
     });
   } catch (err) {

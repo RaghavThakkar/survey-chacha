@@ -1,45 +1,64 @@
 <%- include('../partials/header.ejs'); %>
     <div class="container mt-5">
         <div class="shadow-lg p-3 mb-5 bg-white rounded">
-            <h3 class=" text-center mb-5">Survey Responses   
-            </h3>  
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <canvas id="myChart" width="400" height="400" ></canvas>
-                <input type="hidden" id="chartdata" value="<%= items %>"/>
-                 <div class="p-2"> </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Answers</th>
+            <h3 class=" text-center mb-5">Survey Responses
+            </h3>
+            <input type="hidden" id="chartdata" value="<%= data %>" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (let count=0; count < items.length; count++) { %>
-                                <tr>
-                                    <th scope="row">
-                                        <%=items[count]._id%>
-                                    </th>
-                                    <td>
-                                        <%=items[count].ownerId.displayName%>
-                                    </td>
-                                    <td>
-                                        <%=items[count].questionValue%>
-                                    </td>
+                        <canvas id="myChart" width="300" height="300" style="width: 12rem;"></canvas>
+                        <p>
+                            <%=questions[0] %>
+                        </p>
+                    </div>
+                    <div class="col-sm">
 
-                                </tr>
+                        <canvas id="myChart1" width="300" height="300" style="width: 12rem;"></canvas>
+                        <p>
+                            <%=questions[1] %>
+                        </p>
+                    </div>
+                    <div class="col-sm">
 
-                                <% } %>
-                        </tbody>
-                    </table>
-              </div>
+                        <canvas id="myChart2" width="300" height="300" style="width: 12rem;"></canvas>
+                        <p>
+                            <%=questions[2] %>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+
+                        <canvas id="myChart3" width="300" height="300" style="width: 12rem;"></canvas>
+                        <p>
+                            <%=questions[3] %>
+                        </p>
+                    </div>
+                    <div class="col-sm">
+
+                        <canvas id="myChart4" width="300" height="300" style="width: 12rem;"></canvas>
+                        <p>
+                            <%=questions[4] %>
+                        </p>
+                    </div>
+                    <div class="col-sm">
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="p-2"> </div>
+
             </div>
-
         </div>
-      </div>
+
     </div>
-<%- include('../partials/footer.ejs'); %>
-<script src="/Scripts/chartdata.js"></script>
+    </div>
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+        <script src="/Scripts/chartdata.js"></script>
