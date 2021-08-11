@@ -6,9 +6,7 @@
         <div class="d-flex flex-row justify-content-center">
           <h3>Surveys</h3>
           <div class="p-2"> </div>
-          <% if(responseCount!=0){ %>
-            <a href="#" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Responses(<%= responseCount%>)</a>
-            <% } %>
+          
 
         </div>
 
@@ -18,7 +16,7 @@
       <div class="row text-center">
 
         <div class="col-xl-3 col-sm-6 col-12 mb-2">
-          <div class="card " style="width: 15rem; height: 19rem;">
+          <div class="card " >
             <div class="card-body">
               <h5 class="card-title">Create Survey</h5>
             </div>
@@ -32,7 +30,7 @@
 
           <div class="col-xl-3 col-sm-6 col-12 mb-2 ">
             <div class="card shadow-lg p-3 mb-2 bg-white rounded d-flex justify-content-center flex-column zoom"
-              style="width: 15rem; height: 19rem;">
+              >
 
               <div>
                 <h4>
@@ -52,8 +50,16 @@
               </a>
               <a href="/survey/delete/<%=items[count]._id%>" class="btn btn-danger delete mb-2">Delete <i
                   class="fa fa-trash"></i> </a>
-              <a href="/survey/response/<%=items[count]._id%>" class="btn btn-success"> <i class="fa fa-table"> Response
+              <a href="/survey/response/<%=items[count]._id%>" class="btn btn-success mb-2"> <i class="fa fa-table"> Response
                 </i> </a>
+                <% if(items[count].isPublic){ %>
+                 <a href="/survey/response/<%=items[count]._id%>" class="btn btn-light mb-2"> <i class="fa fa-lock"> 
+                </i> </a>
+
+                <% }else { %>
+ <a href="/survey/response/<%=items[count]._id%>" class="btn btn-light mb-2"> <i class="fa fa-unlock"> 
+                </i> </a>
+                <% } %>
 
             </div>
           </div>
