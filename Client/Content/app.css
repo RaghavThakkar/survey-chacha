@@ -108,7 +108,7 @@ body {
 .aboutUsImage {
     width: 140px;
     height: 150px;
-
+    object-fit: cover;
     /* Animation */
 
 }
@@ -170,25 +170,26 @@ input-group-addon:first-child {
     top: -31px;
     display: none;
 }
-  
+
 
 @media all and (max-width:1000px) {
-    .img-hide{
+    .img-hide {
         display: none;
     }
 }
 
 @media all and (max-width:600px) {
     body {
-           font-size: smaller;
+        font-size: smaller;
     }
 
-    .small-screen{
+    .small-screen {
         height: 250px;
         width: 250px;
     }
-    .small-index{
+
+    .small-index {
         margin-top: 40px;
     }
-    
-  }
+
+}
