@@ -1,67 +1,82 @@
 <%- include('../partials/header.ejs'); %>
-  <div class="container mb-2 ">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-offset-3 col-md-6">
+  <div>
 
-        <!-- message area -->
-        <form id="loginForm" novalidate method="POST" style="margin-top: 200px ;">
+    <div class="container mt-5">
+      <div class="row d-flex justify-content-center">
 
-          <div class="card shadow-lg bg-black rounded">
-            <div class="card-body">
-              <h1 class="card-title text-center">Login</h1>
-              <%- include('../partials/footer.ejs'); %>
+        <div class="col-lg-4 col-md-6 col-12">
+          <h2 class="text-white">Welcome In Survey Chacha</h2>
+          <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_q5pk6p1k.json"  background="transparent"  
+          speed="1" class="small-screen align-center"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+        </div>
 
 
-                <% if(messages.length> 0) { %>
-                  <div id="messageArea" class="alert alert-danger">
-                    <%= messages %>
-                  </div>
-                  <% } %>
-                    <div class="col-auto">
-                      <label class="sr-only" for="inlineFormInputGroup"></label>
-                      <div class="form-group mb-2">
+        <div class="col-lg-8 col-md-6 col-12">
+
+          <!-- message area -->
+          <form id="loginForm" novalidate method="POST" style="margin-top: 80px; background: transparent;">
+            
+            <div class="card shadow-lg bg-black rounded" style=" background: transparent;">
+              <div class="card-body">
+                
+                <h1 class="card-title text-center text-white">Login</h1>
+
+                  <% if(messages.length> 0) { %>
+                    <div id="messageArea" class="alert alert-danger">
+                      <%= messages %>
+                    </div>
+                    <% } %>
+                      <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
+                        <div class="form-group mb-2">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-user">
+                              </i>
+                            </span>
+                            <input type="text" class="form-control" id="username" name="username" required value=""
+                              placeholder="Enter your username">
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="form-group col-auto">
                         <div class="input-group">
                           <span class="input-group-addon">
-                            <i class="fa fa-user">
+                            <i class="fa fa-lock">
                             </i>
                           </span>
-                          <input type="text" class="form-control" id="username" name="username" required value=""
-                            placeholder="Enter your username">
+                          <input type="password" class="form-control" id="password" name="password" required value=""
+                            placeholder="Enter your password">
                         </div>
+
                       </div>
 
-                    </div>
-
-                    <div class="form-group col-auto">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-lock">
-                          </i>
-                        </span>
-                        <input type="password" class="form-control" id="password" name="password" required value=""
-                          placeholder="Enter your password">
+                      <div class="text-end mt-2 col-auto">
+                        <button id="loginButton" type="submit" class="btn btn-primary"><i
+                            class="fas fa-sign-in-alt"></i>
+                          Login</button>
+                        <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
+                          Cancel</button>
                       </div>
 
-                    </div>
+                      <div class="text-center mt-2 col-auto">
+                        <a href="/register" id="loginButton" class="text-white" style="font-weight: bold; font-size: 18px;"
+                         type="submit"></i>Don't have account? Register</a>
+                      </div>
 
-                    <div class="text-end mt-2 col-auto">
-                      <button id="loginButton" type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>
-                        Login</button>
-                      <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo"></i>
-                        Cancel</button>
-                    </div>
-
-                    <div class="text-center mt-2 col-auto">
-                      <a href="/register" id="loginButton" type="submit"></i>Don't have account? Register</a>
-                    </div>
-
+              </div>
             </div>
-          </div>
 
 
-        </form>
+          </form>
+
+        </div>
 
       </div>
-
     </div>
+
   </div>
+
+  <%- include('../partials/footer.ejs'); %>
