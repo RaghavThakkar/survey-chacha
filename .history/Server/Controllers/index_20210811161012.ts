@@ -110,7 +110,7 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
 }
 
 export function ProcessContactPage(req: Request, res: Response, next: NextFunction): void {
-    // instantiate a new Contact Object
+    // instantiate a new User Object
     let newContact = new Contact
         ({
             fullName: req.body.fullName,
@@ -124,6 +124,6 @@ export function ProcessContactPage(req: Request, res: Response, next: NextFuncti
             console.error(err);
             res.end(err);
         }
-        return res.redirect('/survey/thanks');
+        return res.redirect('/survey/thankyou');
     });
 }

@@ -124,6 +124,6 @@ export function ProcessContactPage(req: Request, res: Response, next: NextFuncti
             console.error(err);
             res.end(err);
         }
-        return res.redirect('/survey/thanks');
+        return res.redirect('/survey/thankyou');
     });
 }

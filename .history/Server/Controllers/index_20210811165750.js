@@ -88,6 +88,7 @@ function ProcessLogoutPage(req, res, next) {
     res.redirect('/login');
 }
 exports.ProcessLogoutPage = ProcessLogoutPage;
+
 function ProcessContactPage(req, res, next) {
     let newContact = new contact_1.default({
         fullName: req.body.fullName,
@@ -100,7 +101,7 @@ function ProcessContactPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        return res.redirect('/survey/thanks');
+        return res.redirect('/survey/thankyou');
     });
 }
 exports.ProcessContactPage = ProcessContactPage;
