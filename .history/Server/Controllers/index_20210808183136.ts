@@ -4,8 +4,6 @@ import passport from 'passport';
 
 import User from '../Models/user';
 
-import Contact from '../Models/contact';
-
 import { UserDisplayName } from '../Util';
 
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
@@ -107,23 +105,4 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
 export function ProcessLogoutPage(req: Request, res: Response, next: NextFunction): void {
     req.logOut();
     res.redirect('/login');
-}
-
-export function ProcessContactPage(req: Request, res: Response, next: NextFunction): void {
-    // instantiate a new Contact Object
-    let newContact = new Contact
-        ({
-            fullName: req.body.fullName,
-            email: req.body.emailAddress,
-            phone: req.body.phone,
-            message: req.body.message
-        });
-    
-    Contact.create(newContact, (err) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-        return res.redirect('/survey/thanks');
-    });
 }

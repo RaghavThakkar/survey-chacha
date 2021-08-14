@@ -108,22 +108,3 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
     req.logOut();
     res.redirect('/login');
 }
-
-export function ProcessContactPage(req: Request, res: Response, next: NextFunction): void {
-    // instantiate a new Contact Object
-    let newContact = new Contact
-        ({
-            fullName: req.body.fullName,
-            email: req.body.emailAddress,
-            phone: req.body.phone,
-            message: req.body.message
-        });
-    
-    Contact.create(newContact, (err) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-        return res.redirect('/survey/thanks');
-    });
-}

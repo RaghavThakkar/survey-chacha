@@ -8,7 +8,6 @@ import Question from '../Models/questions';
 import SurveyResponse from '../Models/SurveyResponse';
 import { promises as fs } from 'fs';
 //import Parser from "json2csv";
-var chunk = require('lodash.chunk');
 import passport from 'passport';
 
 import User from '../Models/user';
@@ -80,6 +79,26 @@ export async function ProcessDF(req: Request, res: Response, next: NextFunction)
 
 export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
   try {
+    console.log(req.params.id)
+    let id = req.params.id;
+
+    const item = await Survey.findOne({ _id: id }).populate({
+      path: 'questions',
+      model: 'Question',
+      populate: {
+        path: 'optionsList',
+        model: 'Option',
+
+      }
+    }).exec();
+    if (item.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
+
+      return;
+    }
     res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
   } catch (err) {
     console.error(err);
@@ -92,7 +111,7 @@ export async function DisplayThankYou(req: Request, res: Response, next: NextFun
 export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
   try {
 
-
+    console.log(req.params.id)
     let id = req.params.id;
 
     const item = await Survey.findOne({ _id: id }).populate({
@@ -105,9 +124,13 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
       }
     }).exec();
 
-    if (item.isPublic && !req.isAuthenticated()) {
-      res.redirect('/login');
-      return
+    if (item.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
+
+      return;
     }
     res.render('survey/take',
       {
@@ -125,10 +148,14 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
   try {
     let id = req.params.id;
     const survey = await Survey.findOne({ _id: id }).exec();
+    console.log(survey);
+    if (survey.isPublic) {
+      if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+      }
+      next();
 
-    if (survey.isPublic && !req.isAuthenticated()) {
-      res.redirect('/login');
-      return
+      return;
     }
     const surveyresponse = new SurveyResponse(
       {
@@ -139,7 +166,7 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
     );
 
     const q1o1 = await SurveyResponse.create(surveyresponse);
-    res.redirect('/survey/thanks');
+    res.redirect('/survey/thanks/' + id);
   } catch (err) {
     console.error(err);
     res.end(err);
@@ -600,7 +627,7 @@ const makeCsvFile = (data: any, res: any) => {
   csvWriter
     .writeRecords(result) // returns a promise
     .then(() => {
-      console.log(' Succefully export to csv');
+      console.log('Successfully export to csv');
       res.download('./Client/Assets/csv/data.csv');
     });
 };
@@ -648,9 +675,7 @@ export async function DisplayAnalytics(
     console.error(err);
     res.end(err);
   }
-}
-
-export async function AnalyticsSurveyResponse(
+} export async function AnalyticsSurveyResponse(
   req: Request,
   res: Response,
   next: NextFunction
@@ -658,20 +683,6 @@ export async function AnalyticsSurveyResponse(
   try {
     let id = req.params.id;
     const responses = await SurveyResponse.find({ survey: objectId(id) })
-      .populate(
-        {
-          path: 'survey',
-          model: 'Survey',
-          populate: {
-            path: 'questions',
-            model: 'Question',
-            populate: {
-              path: 'optionsList',
-              model: 'Option',
-
-            }
-          }
-        })
       .populate({
         path: 'ownerId',
         model: 'User',
@@ -679,79 +690,13 @@ export async function AnalyticsSurveyResponse(
       .lean()
       .exec();
 
-    const result = responses.map((d: any) => {
-      return {
-
-        q1: d.questionValue[0],
-        q2: d.questionValue[1],
-        q3: d.questionValue[2],
-        q4: d.questionValue[3],
-        q5: d.questionValue[4],
-      };
-    });
-    let data = [0, 0,
-      0, 0,
-      0, 0,
-      0, 0,
-      0, 0];
-    if (responses[0].survey.type === "1") {
-      data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-      for (let i = 0; i < result.length; i++) {
-        if (result[i].q1 == 'True') {
-          data[0]++;
-        } else {
-          data[1]++;
-        }
-
-        if (result[i].q2 == 'True') {
-          data[2]++;
-        } else {
-          data[3]++;
-        }
-
-        if (result[i].q3 == 'True') {
-          data[4]++;
-        } else {
-          data[5]++;
-        }
-
-        if (result[i].q4 == 'True') {
-          data[6]++;
-        } else {
-          data[7]++;
-        }
-
-        if (result[i].q5 == 'True') {
-          data[8]++;
-        } else {
-          data[9]++;
-        }
-
-      }
-    } else {
-      data = [0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0];
-    }
-
-
-
-
+    console.log(responses);
 
     res.render('surveyResponse/analytics', {
       title: 'analytics',
       page: 'index',
-      items: JSON.stringify(responses),
+      items: responses,
       id: id,
-      data: data,
-      questions: [responses[0].survey.questions[0].question,
-      responses[0].survey.questions[1].question,
-      responses[0].survey.questions[2].question,
-      responses[0].survey.questions[3].question,
-      responses[0].survey.questions[4].question],
       displayName: UserDisplayName(req),
     });
   } catch (err) {

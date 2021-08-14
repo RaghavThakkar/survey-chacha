@@ -5,7 +5,7 @@ export default router;
 import mongoose from 'mongoose';
 
 // define the book model
-import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessContactPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
+import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
 import { DF, ProcessDF } from '../Controllers/surveyController';
 
 
@@ -13,7 +13,7 @@ import { DF, ProcessDF } from '../Controllers/surveyController';
 router.get('/', DisplayHomePage);
 
 router.get('/contact', DisplayContactPage);
-router.post('/contact', ProcessContactPage);
+
 router.get('/about', DisplayAboutPage);
 //module.exports = router;
 
@@ -32,4 +32,4 @@ router.post('/register', ProcessRegisterPage);
 
 
 /* Post register page. */
-router.get('/logout', ProcessLogoutPage);
+router.get('/logout', ProcessLogoutPage); 

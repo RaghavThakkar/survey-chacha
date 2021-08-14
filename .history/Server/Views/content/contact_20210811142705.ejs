@@ -1,14 +1,14 @@
 <%- include('../partials/header.ejs'); %>
-<div class="container mt-5">
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-6 col-sm-12 col-12">
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-6 col-sm-12 col-12">
       <div class="shadow-lg p-3 mb-5 bg-white rounded">
 
 
         <div class="container d-flex justify-content-center align-items-cente flex-column">
           <h1 class="display-4 text-center">Contact Us</h1>
 
-          <form method="POST">
+          <form>
 
             <div class="form-group mt-2">
               <label for="fullName">Full Name</label>
@@ -31,12 +31,13 @@
               <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
             </div>
             <br>
-            <button id="submit" type="submit" class="btn btn-primary btn-lg">Submit</button>
+            <button type="button" class="btn btn-primary btn-lg">Submit</button>
           </form>
+
         </div>
+      </div>
       </div>
     </div>
   </div>
-</div>
 
-<%- include('../partials/footer.ejs'); %>
+  <%- include('../partials/footer.ejs'); %>

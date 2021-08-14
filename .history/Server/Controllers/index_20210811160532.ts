@@ -110,20 +110,29 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
 }
 
 export function ProcessContactPage(req: Request, res: Response, next: NextFunction): void {
-    // instantiate a new Contact Object
+    // instantiate a new User Object
     let newContact = new Contact
         ({
             fullName: req.body.fullName,
             email: req.body.emailAddress,
             phone: req.body.phone,
-            message: req.body.message
+            message: rreq.body.message
         });
-    
-    Contact.create(newContact, (err) => {
+
+    User.register(newUser, req.body.password, (err) => {
         if (err) {
-            console.error(err);
-            res.end(err);
+            console.error('Error: Inserting New User');
+            if (err.name == "UserExistsError") {
+                console.error('Error: User Already Exists');
+            }
+            req.flash('registerMessage', 'Registration Error');
+
+            return res.redirect('/register');
         }
-        return res.redirect('/survey/thanks');
+
+        // after successful registration - login the user
+        return passport.authenticate('local')(req, res, () => {
+            return res.redirect('/survey');
+        });
     });
 }

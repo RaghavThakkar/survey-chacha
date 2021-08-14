@@ -10,7 +10,6 @@ const index_1 = require("../Controllers/index");
 const surveyController_1 = require("../Controllers/surveyController");
 router.get('/', index_1.DisplayHomePage);
 router.get('/contact', index_1.DisplayContactPage);
-router.post('/contact', index_1.ProcessContactPage);
 router.get('/about', index_1.DisplayAboutPage);
 router.get('/login', index_1.DisplayLoginPage);
 router.get('/df', surveyController_1.DF);

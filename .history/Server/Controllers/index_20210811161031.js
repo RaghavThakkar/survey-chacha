@@ -100,7 +100,7 @@ function ProcessContactPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        return res.redirect('/survey/thanks');
+        return res.redirect('/survey/thankyou');
     });
 }
 exports.ProcessContactPage = ProcessContactPage;
