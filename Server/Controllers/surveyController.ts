@@ -105,17 +105,18 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
       }
     }).exec();
 
-    if (item.isPublic && !req.isAuthenticated()) {
+    if (!(item.isPublic && !req.isAuthenticated())) {
+      res.render('survey/take',
+          {
+            title: 'Take Survey',
+            page: 'index',
+            data: item,
+            displayName: UserDisplayName(req)
+          });
+    } else {
       res.redirect('/login');
       return
     }
-    res.render('survey/take',
-      {
-        title: 'Take Survey',
-        page: 'index',
-        data: item,
-        displayName: UserDisplayName(req)
-      });
   } catch (err) {
     console.error(err);
     res.end(err);

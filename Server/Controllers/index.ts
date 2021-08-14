@@ -86,6 +86,7 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
             displayName: req.body.FirstName + " " + req.body.LastName
         });
 
+    // @ts-ignore
     User.register(newUser, req.body.password, (err) => {
         if (err) {
             console.error('Error: Inserting New User');
