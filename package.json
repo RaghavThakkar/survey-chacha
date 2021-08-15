@@ -1,9 +1,13 @@
 {
-  "name": "Air-International",
-  "version": "0.0.3",
+  "name": "Survey Chacha",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node server.js"
+  },
+  "engines": {
+    "node": "^14.17.0",
+    "npm": "^7.0.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
@@ -35,7 +39,7 @@
     "passport-local-mongoose": "^6.1.0",
     "popper.js": "^1.16.1"
   },
-  "description": "## Welcome to the MidTerm Project - the Favourite Book List App",
+  "description": "Survey Chacha",
   "main": "server.js",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -56,10 +60,8 @@
     "@types/passport-local": "^1.0.33",
     "@types/passport-local-mongoose": "^4.0.14"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RaghavThakkar/air-international.git"
-  },
+  "repository": "https://github.com/RaghavThakkar/air-international.git",
+
   "keywords": [
     "NodeJS",
     "ExpressJS",
