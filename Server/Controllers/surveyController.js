@@ -111,16 +111,18 @@ function TakeSurvey(req, res, next) {
                     model: 'Option',
                 }
             }).exec();
-            if (item.isPublic && !req.isAuthenticated()) {
+            if (!(item.isPublic && !req.isAuthenticated())) {
+                res.render('survey/take', {
+                    title: 'Take Survey',
+                    page: 'index',
+                    data: item,
+                    displayName: Util_1.UserDisplayName(req)
+                });
+            }
+            else {
                 res.redirect('/login');
                 return;
             }
-            res.render('survey/take', {
-                title: 'Take Survey',
-                page: 'index',
-                data: item,
-                displayName: Util_1.UserDisplayName(req)
-            });
         }
         catch (err) {
             console.error(err);
@@ -603,6 +605,7 @@ function AnalyticsSurveyResponse(req, res, next) {
                 0, 0,
                 0, 0];
             if (responses[0].survey.type === "1") {
+                console.log("type 1");
                 data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 for (let i = 0; i < result.length; i++) {
                     if (result[i].q1 == 'True') {
@@ -638,11 +641,21 @@ function AnalyticsSurveyResponse(req, res, next) {
                 }
             }
             else {
-                data = [0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0, 0];
+                let length = 20;
+                let options = [];
+                for (let i = 0; i < length; i++) {
+                    data.push(0);
+                    options.push("");
+                }
+                let currentIndex = 0;
+                for (let question in responses[0].survey.questions) {
+                    for (let option in question.optionList) {
+                        options[currentIndex] = option.option;
+                        currentIndex++;
+                    }
+                }
+                console.log(options);
+                return;
             }
             res.render('surveyResponse/analytics', {
                 title: 'analytics',

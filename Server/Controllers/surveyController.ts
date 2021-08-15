@@ -107,12 +107,12 @@ export async function TakeSurvey(req: Request, res: Response, next: NextFunction
 
     if (!(item.isPublic && !req.isAuthenticated())) {
       res.render('survey/take',
-          {
-            title: 'Take Survey',
-            page: 'index',
-            data: item,
-            displayName: UserDisplayName(req)
-          });
+        {
+          title: 'Take Survey',
+          page: 'index',
+          data: item,
+          displayName: UserDisplayName(req)
+        });
     } else {
       res.redirect('/login');
       return
@@ -696,6 +696,7 @@ export async function AnalyticsSurveyResponse(
       0, 0,
       0, 0];
     if (responses[0].survey.type === "1") {
+      console.log("type 1");
       data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       for (let i = 0; i < result.length; i++) {
@@ -731,11 +732,25 @@ export async function AnalyticsSurveyResponse(
 
       }
     } else {
-      data = [0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0];
+      let length = 20;
+      let options = [];
+      for (let i = 0; i < length; i++) {
+        data.push(0);
+        options.push("");
+      }
+
+      let currentIndex = 0;
+      for (let question in responses[0].survey.questions) {
+        for (let option in question.optionList) {
+          options[currentIndex] = option.option;
+          currentIndex++;
+        }
+
+      }
+      console.log(options);
+      return;
+
+
     }
 
 
