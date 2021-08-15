@@ -1,15 +1,11 @@
 {
-  "name": "Survey Chacha",
+  "name": "Survey-Chacha",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node index.js"
   },
-  "engines": {
-    "node": "^14.17.0",
-    "npm": "^7.0.0"
-  },
- 
+
   "description": "Survey Chacha",
   "main": "index.js",
   "author": "Raghav Thakkar",
