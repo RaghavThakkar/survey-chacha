@@ -690,6 +690,8 @@ export async function AnalyticsSurveyResponse(
         q5: d.questionValue[4],
       };
     });
+
+    let options = [];
     let data = [0, 0,
       0, 0,
       0, 0,
@@ -732,23 +734,32 @@ export async function AnalyticsSurveyResponse(
 
       }
     } else {
+      console.log("type 2");
       let length = 20;
-      let options = [];
+      options = [];
       for (let i = 0; i < length; i++) {
         data.push(0);
         options.push("");
       }
 
       let currentIndex = 0;
-      for (let question in responses[0].survey.questions) {
-        for (let option in question.optionList) {
-          options[currentIndex] = option.option;
+      for (let i = 0; i < responses[0].survey.questions.length; i++) {
+        for (let j = 0; j < responses[0].survey.questions[i].optionsList.length; j++) {
+          options[currentIndex] = responses[0].survey.questions[i].optionsList[j].option;
+          for (let z = 0; z < responses.length; z++) {
+            if (options[currentIndex] === responses[z].questionValue[i]) {
+              data[currentIndex]++;
+            }
+          }
+
           currentIndex++;
         }
 
       }
+
       console.log(options);
-      return;
+      console.log(data);
+
 
 
     }
@@ -763,6 +774,8 @@ export async function AnalyticsSurveyResponse(
       items: JSON.stringify(responses),
       id: id,
       data: data,
+      options: options,
+      type: responses[0].survey.type,
       questions: [responses[0].survey.questions[0].question,
       responses[0].survey.questions[1].question,
       responses[0].survey.questions[2].question,

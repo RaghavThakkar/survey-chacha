@@ -40,7 +40,7 @@ const surveyRoute_1 = __importDefault(require("../Routes/surveyRoute"));
 const app = express_1.default();
 exports.default = app;
 const DBConfig = __importStar(require("./db"));
-mongoose_1.default.connect(process.env.URI || DBConfig.RemoteURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose_1.default.connect(process.env.URI || DBConfig.LocalURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose_1.default.connection;
 db.on("error", function () {
     console.error("connection error");
