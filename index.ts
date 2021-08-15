@@ -1,36 +1,70 @@
 #!/usr/bin/env node
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const debug_1 = __importDefault(require("debug"));
-debug_1.default('week3:server');
-const http_1 = __importDefault(require("http"));
+
+/**
+ * Module dependencies.
+ */
+
+import createError from 'http-errors';
+import app from './Server/Config/app';
+import debug from 'debug';
+
+import http from 'http';
+
+/**
+ * Get port from environment and store in Express.
+ */
+
 let port = normalizePort(process.env.PORT || '3000');
-app_1.default.set('port', port);
-let server = http_1.default.createServer(app_1.default);
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+let server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-function normalizePort(val) {
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val: string): number | string | boolean {
     let port = parseInt(val, 10);
+
     if (isNaN(port)) {
+        // named pipe
         return val;
     }
+
     if (port >= 0) {
+        // port number
         return port;
     }
+
     return false;
 }
-function onError(error) {
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error: createError.HttpError): void {
     if (error.syscall !== 'listen') {
         throw error;
     }
+
     var bind = typeof port === 'string'
         ? 'Pipe ' + port
         : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
@@ -44,11 +78,15 @@ function onError(error) {
             throw error;
     }
 }
-function onListening() {
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening(): void {
     let addr = server.address();
     let bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug_1.default('Listening on ' + bind);
+    debug('Listening on ' + bind);
 }
-//# sourceMappingURL=server.js.map

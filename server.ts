@@ -1,7 +1,13 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
 import createError from 'http-errors';
-import app from './Server/Config/app';
+import app from './app';
 import debug from 'debug';
-debug('comp308-m2021-midterm:server');
+debug('week3:server');
 import http from 'http';
 
 /**
@@ -29,36 +35,32 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
- function normalizePort(val:string): number | string | boolean 
- {
-   let port = parseInt(val, 10);
- 
-   if (isNaN(port)) 
-   {
-     // named pipe
-     return val;
-   }
- 
-   if (port >= 0) 
-   {
-     // port number
-     return port;
-   }
- 
-   return false;
- }
+function normalizePort(val: string): number | string | boolean {
+  let port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
 
 /**
  * Event listener for HTTP server "error" event.
  */
- 
-function onError(error:createError.HttpError): void 
-{
+
+function onError(error: createError.HttpError): void {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  let bind = typeof port === 'string'
+  var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -81,8 +83,7 @@ function onError(error:createError.HttpError): void
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening(): void 
-{
+function onListening(): void {
   let addr = server.address();
   let bind = typeof addr === 'string'
     ? 'pipe ' + addr
