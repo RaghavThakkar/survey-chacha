@@ -35,7 +35,7 @@ export default app; // exports app as the default Object for this module
 
 
 import * as DBConfig from './db';
-import { RemoteURI } from "./db";
+
 
 mongoose.connect(DBConfig.RemoteURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
