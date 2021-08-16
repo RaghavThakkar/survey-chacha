@@ -63,11 +63,5 @@
     "passport-local-mongoose": "^6.1.0",
     "popper.js": "^1.16.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RaghavThakkar/air-international.git"
-  },
-  "bugs": {
-    "url": "https://github.com/RaghavThakkar/air-international/issues"
-  }
+  "repository": "https://github.com/RaghavThakkar/air-international"
 }
