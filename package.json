@@ -1,16 +1,19 @@
 {
-  "name": "Survey-Chacha",
+  "name": "survey-chacha",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./index.js"
   },
-
+  "engines": {
+    "node": "^14.17.0",
+    "npm": "^7.0.0"
+  },
   "description": "Survey Chacha",
   "main": "index.js",
   "author": "Raghav Thakkar",
   "license": "ISC",
-  "homepage": "",
+  "homepage": "https://github.com/RaghavThakkar/air-international#readme",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/bootstrap": "^5.0.16",
@@ -59,5 +62,12 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
     "popper.js": "^1.16.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaghavThakkar/air-international.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RaghavThakkar/air-international/issues"
   }
 }
