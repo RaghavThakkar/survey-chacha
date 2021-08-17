@@ -12,7 +12,7 @@ import {
 
   DisplaySurveyResponse,
   ExportSurveyResponse,
-  ProcessSurvey,
+  ProcessSurvey
 
 } from '../Controllers/surveyController';
 import { AuthGuard } from '../Util';
