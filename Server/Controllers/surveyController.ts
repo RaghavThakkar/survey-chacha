@@ -89,7 +89,39 @@ export async function DisplayThankYou(req: Request, res: Response, next: NextFun
 
 
 
+export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
+  try {
 
+
+    let id = req.params.id;
+
+    const item = await Survey.findOne({ _id: id }).populate({
+      path: 'questions',
+      model: 'Question',
+      populate: {
+        path: 'optionsList',
+        model: 'Option',
+
+      }
+    }).exec();
+
+    if (!(item.isPublic && !req.isAuthenticated())) {
+      res.render('survey/take',
+        {
+          title: 'Take Survey',
+          page: 'index',
+          data: item,
+          displayName: UserDisplayName(req)
+        });
+    } else {
+      res.redirect('/login');
+      return
+    }
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
 export async function ProcessTakeSurvey(req: Request, res: Response, next: NextFunction) {
   try {
     let id = req.params.id;
