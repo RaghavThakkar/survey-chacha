@@ -3,11 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessContactPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayHomePage = exports.DisplayAboutPage = void 0;
+exports.ProcessContactPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayHomePage = exports.DisplayAboutPage = exports.DisplayServicesPage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const user_1 = __importDefault(require("../Models/user"));
 const contact_1 = __importDefault(require("../Models/contact"));
 const Util_1 = require("../Util");
+function DisplayServicesPage(req, res, next) {
+    res.render('index', { title: 'Our Services', page: 'services', displayName: Util_1.UserDisplayName(req) });
+}
+exports.DisplayServicesPage = DisplayServicesPage;
 function DisplayAboutPage(req, res, next) {
     res.render('content/about', { title: 'About Us', page: 'about', displayName: Util_1.UserDisplayName(req) });
 }
@@ -24,10 +28,6 @@ function DisplayContactPage(req, res, next) {
     res.render('content/contact', { title: 'Contact Us', page: 'contact', displayName: Util_1.UserDisplayName(req) });
 }
 exports.DisplayContactPage = DisplayContactPage;
-function DisplayServicesPage(req, res, next) {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: Util_1.UserDisplayName(req) });
-}
-exports.DisplayServicesPage = DisplayServicesPage;
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
         return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: Util_1.UserDisplayName(req) });

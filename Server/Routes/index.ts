@@ -10,12 +10,12 @@ import { DisplayContactPage, DisplayAboutPage, DisplayHomePage, DisplayLoginPage
 
 //
 
+//contact page
+router.get('/contact', DisplayContactPage);
 /* GET home page. wildcard */
 router.get('/', DisplayHomePage);
 
 
-//contact page
-router.get('/contact', DisplayContactPage);
 //process contact page
 router.post('/contact', ProcessContactPage);
 router.get('/about', DisplayAboutPage);

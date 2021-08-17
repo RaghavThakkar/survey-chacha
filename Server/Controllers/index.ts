@@ -10,6 +10,10 @@ import { UserDisplayName } from '../Util';
 
 //
 
+export function DisplayServicesPage(req: Request, res: Response, next: NextFunction): void {
+    res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName(req) });
+}
+
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {
     res.render('content/about', { title: 'About Us', page: 'about', displayName: UserDisplayName(req) });
@@ -25,10 +29,6 @@ export function DisplayProjectPage(req: Request, res: Response, next: NextFuncti
 
 export function DisplayContactPage(req: Request, res: Response, next: NextFunction): void {
     res.render('content/contact', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req) });
-}
-
-export function DisplayServicesPage(req: Request, res: Response, next: NextFunction): void {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName(req) });
 }
 
 export function DisplayLoginPage(req: Request, res: Response, next: NextFunction): void {
