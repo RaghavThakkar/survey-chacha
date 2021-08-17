@@ -8,6 +8,7 @@ import Contact from '../Models/contact';
 
 import { UserDisplayName } from '../Util';
 
+//
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
     res.render('content/index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
@@ -119,7 +120,7 @@ export function ProcessContactPage(req: Request, res: Response, next: NextFuncti
             phone: req.body.phone,
             message: req.body.message
         });
-    
+
     Contact.create(newContact, (err) => {
         if (err) {
             console.error(err);
