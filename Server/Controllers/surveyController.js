@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
@@ -297,64 +297,4 @@ function DisplaySurveyResponse(req, res, next) {
     });
 }
 exports.DisplaySurveyResponse = DisplaySurveyResponse;
-function ExportSurveyResponse(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            const responses = yield SurveyResponse_1.default.find({ survey: Util_1.objectId(id) })
-                .populate({
-                path: 'survey',
-                model: 'Survey',
-                populate: {
-                    path: 'questions',
-                    model: 'Question',
-                    populate: {
-                        path: 'optionsList',
-                        model: 'Option',
-                    }
-                }
-            })
-                .populate({
-                path: 'ownerId',
-                model: 'User',
-            })
-                .lean()
-                .exec();
-            makeCsvFile(responses, res);
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.ExportSurveyResponse = ExportSurveyResponse;
-const makeCsvFile = (data, res) => {
-    const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-    const csvWriter = createCsvWriter({
-        path: './Client/Assets/csv/data.csv',
-        header: [
-            { id: 'q1', title: data[0].survey.questions[0].question },
-            { id: 'q2', title: data[0].survey.questions[1].question },
-            { id: 'q3', title: data[0].survey.questions[2].question },
-            { id: 'q4', title: data[0].survey.questions[3].question },
-            { id: 'q5', title: data[0].survey.questions[4].question },
-        ],
-    });
-    const result = data.map((d) => {
-        return {
-            q1: d.questionValue[0],
-            q2: d.questionValue[1],
-            q3: d.questionValue[2],
-            q4: d.questionValue[3],
-            q5: d.questionValue[4],
-        };
-    });
-    csvWriter
-        .writeRecords(result)
-        .then(() => {
-        console.log(' Succefully export to csv');
-        res.download('./Client/Assets/csv/data.csv');
-    });
-};
 //# sourceMappingURL=surveyController.js.map
