@@ -6,8 +6,7 @@ import {
   CreateSurvey,
 
   DeleteSurvey,
-  TakeSurvey,
-  ProcessTakeSurvey,
+
   ProcessSurvey,
   DisplayThankYou,
   EditSurvey,
@@ -29,8 +28,8 @@ router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
 router.get('/edit/:id', AuthGuard, EditSurvey);
 router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
-router.get('/take/:id', TakeSurvey);
-router.post('/take/:id', ProcessTakeSurvey);
+//router.get('/take/:id', TakeSurvey);
+//router.post('/take/:id', ProcessTakeSurvey);
 
 router.get('/response/:id', AuthGuard, DisplaySurveyResponse);
 //router.post('/response/:id', AuthGuard, ProcessTakeSurvey);

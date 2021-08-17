@@ -270,64 +270,7 @@ export async function DisplayThankYou(req: Request, res: Response, next: NextFun
     res.end(err);
   }
 }
-export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
-  try {
 
-
-    let id = req.params.id;
-
-    const item = await Survey.findOne({ _id: id }).populate({
-      path: 'questions',
-      model: 'Question',
-      populate: {
-        path: 'optionsList',
-        model: 'Option',
-
-      }
-    }).exec();
-
-    if (!(item.isPublic && !req.isAuthenticated())) {
-      res.render('survey/take',
-        {
-          title: 'Take Survey',
-          page: 'index',
-          data: item,
-          displayName: UserDisplayName(req)
-        });
-    } else {
-      res.redirect('/login');
-      return
-    }
-  } catch (err) {
-    console.error(err);
-    res.end(err);
-  }
-}
-
-export async function ProcessTakeSurvey(req: Request, res: Response, next: NextFunction) {
-  try {
-    let id = req.params.id;
-    const survey = await Survey.findOne({ _id: id }).exec();
-
-    if (survey.isPublic && !req.isAuthenticated()) {
-      res.redirect('/login');
-      return
-    }
-    const surveyresponse = new SurveyResponse(
-      {
-        questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
-        survey: survey,
-        ownerId: req.user
-      }
-    );
-
-    const q1o1 = await SurveyResponse.create(surveyresponse);
-    res.redirect('/survey/thanks');
-  } catch (err) {
-    console.error(err);
-    res.end(err);
-  }
-}
 export async function DeleteSurvey(req: Request, res: Response, next: NextFunction) {
   try {
     let id = req.params.id;

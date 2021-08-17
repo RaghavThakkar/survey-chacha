@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const moment_1 = __importDefault(require("moment"));
@@ -245,62 +245,6 @@ function DisplayThankYou(req, res, next) {
     });
 }
 exports.DisplayThankYou = DisplayThankYou;
-function TakeSurvey(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            const item = yield Survey_1.default.findOne({ _id: id }).populate({
-                path: 'questions',
-                model: 'Question',
-                populate: {
-                    path: 'optionsList',
-                    model: 'Option',
-                }
-            }).exec();
-            if (!(item.isPublic && !req.isAuthenticated())) {
-                res.render('survey/take', {
-                    title: 'Take Survey',
-                    page: 'index',
-                    data: item,
-                    displayName: Util_1.UserDisplayName(req)
-                });
-            }
-            else {
-                res.redirect('/login');
-                return;
-            }
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.TakeSurvey = TakeSurvey;
-function ProcessTakeSurvey(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            const survey = yield Survey_1.default.findOne({ _id: id }).exec();
-            if (survey.isPublic && !req.isAuthenticated()) {
-                res.redirect('/login');
-                return;
-            }
-            const surveyresponse = new SurveyResponse_1.default({
-                questionValue: [req.body.q1Radio, req.body.q2Radio, req.body.q3Radio, req.body.q4Radio, req.body.q5Radio],
-                survey: survey,
-                ownerId: req.user
-            });
-            const q1o1 = yield SurveyResponse_1.default.create(surveyresponse);
-            res.redirect('/survey/thanks');
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.ProcessTakeSurvey = ProcessTakeSurvey;
 function DeleteSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
