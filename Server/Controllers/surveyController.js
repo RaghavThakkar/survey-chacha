@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AnalyticsSurveyResponse = exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.AnalyticsSurveyResponse = exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const questions_1 = __importDefault(require("../Models/questions"));
@@ -98,38 +98,6 @@ function DisplayThankYou(req, res, next) {
     });
 }
 exports.DisplayThankYou = DisplayThankYou;
-function TakeSurvey(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            const item = yield Survey_1.default.findOne({ _id: id }).populate({
-                path: 'questions',
-                model: 'Question',
-                populate: {
-                    path: 'optionsList',
-                    model: 'Option',
-                }
-            }).exec();
-            if (!(item.isPublic && !req.isAuthenticated())) {
-                res.render('survey/take', {
-                    title: 'Take Survey',
-                    page: 'index',
-                    data: item,
-                    displayName: Util_1.UserDisplayName(req)
-                });
-            }
-            else {
-                res.redirect('/login');
-                return;
-            }
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.TakeSurvey = TakeSurvey;
 function ProcessTakeSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
