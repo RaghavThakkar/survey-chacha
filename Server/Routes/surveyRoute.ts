@@ -9,7 +9,8 @@ import {
 
 
   DisplayThankYou,
-
+  EditSurvey,
+  ProcessEditSurvey,
   DisplaySurveyResponse,
   ExportSurveyResponse,
 
@@ -25,8 +26,8 @@ router.get('/thanks', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
 //router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
-//router.get('/edit/:id', AuthGuard, EditSurvey);
-//router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
+router.get('/edit/:id', AuthGuard, EditSurvey);
+router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
 //router.get('/take/:id', TakeSurvey);
 //router.post('/take/:id', ProcessTakeSurvey);
 
