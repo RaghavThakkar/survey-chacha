@@ -12,10 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
-const moment_1 = __importDefault(require("moment"));
 const questions_1 = __importDefault(require("../Models/questions"));
 const SurveyResponse_1 = __importDefault(require("../Models/SurveyResponse"));
 var chunk = require('lodash.chunk');
@@ -261,122 +260,6 @@ function DeleteSurvey(req, res, next) {
     });
 }
 exports.DeleteSurvey = DeleteSurvey;
-function EditSurvey(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            const item = yield Survey_1.default.findOne({ _id: id }).populate({
-                path: 'questions',
-                model: 'Question',
-                populate: {
-                    path: 'optionsList',
-                    model: 'Option',
-                }
-            }).exec();
-            let startDate = moment_1.default(item.startDate).format("yyyy-MM-DD");
-            let endDate = moment_1.default(item.endDate).format("yyyy-MM-DD");
-            res.render('survey/edit', {
-                title: 'Edit Survey',
-                page: 'index',
-                data: item,
-                displayName: Util_1.UserDisplayName(req),
-                startDate: startDate,
-                endDate: endDate
-            });
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.EditSurvey = EditSurvey;
-function ProcessEditSurvey(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let id = req.params.id;
-            let item = yield Survey_1.default.findOne({ _id: id }).populate({
-                path: 'questions',
-                model: 'Question',
-                populate: {
-                    path: 'optionsList',
-                    model: 'Option',
-                }
-            }).exec();
-            item.title = req.body.title;
-            item.description = req.body.description;
-            console.log("Start Date " + new Date(req.body.startDate));
-            item.startDate = new Date(req.body.startDate);
-            item.endDate = new Date(req.body.endDate);
-            if (item.type === "1") {
-                item.questions[0].question = req.body.q1;
-                item.questions[1].question = req.body.q2;
-                item.questions[2].question = req.body.q3;
-                item.questions[3].question = req.body.q4;
-                item.questions[4].question = req.body.q5;
-            }
-            else {
-                item.questions[0].question = req.body.q1;
-                item.questions[0].optionsList[0].option = req.body.q1o1;
-                item.questions[0].optionsList[1].option = req.body.q1o2;
-                item.questions[0].optionsList[2].option = req.body.q1o3;
-                item.questions[0].optionsList[3].option = req.body.q1o4;
-                item.questions[0].optionsList[0].save();
-                item.questions[0].optionsList[1].save();
-                item.questions[0].optionsList[2].save();
-                item.questions[0].optionsList[3].save();
-                item.questions[1].question = req.body.q2;
-                item.questions[1].optionsList[0].option = req.body.q2o1;
-                item.questions[1].optionsList[1].option = req.body.q2o2;
-                item.questions[1].optionsList[2].option = req.body.q2o3;
-                item.questions[1].optionsList[3].option = req.body.q2o4;
-                item.questions[1].optionsList[0].save();
-                item.questions[1].optionsList[1].save();
-                item.questions[1].optionsList[2].save();
-                item.questions[1].optionsList[3].save();
-                item.questions[2].question = req.body.q3;
-                item.questions[2].optionsList[0].option = req.body.q3o1;
-                item.questions[2].optionsList[1].option = req.body.q3o2;
-                item.questions[2].optionsList[2].option = req.body.q3o3;
-                item.questions[2].optionsList[3].option = req.body.q3o4;
-                item.questions[2].optionsList[0].save();
-                item.questions[2].optionsList[1].save();
-                item.questions[2].optionsList[2].save();
-                item.questions[2].optionsList[3].save();
-                item.questions[3].question = req.body.q4;
-                item.questions[3].optionsList[0].option = req.body.q4o1;
-                item.questions[3].optionsList[1].option = req.body.q4o2;
-                item.questions[3].optionsList[2].option = req.body.q4o3;
-                item.questions[3].optionsList[3].option = req.body.q4o4;
-                item.questions[3].optionsList[0].save();
-                item.questions[3].optionsList[1].save();
-                item.questions[3].optionsList[2].save();
-                item.questions[3].optionsList[3].save();
-                item.questions[4].question = req.body.q5;
-                item.questions[4].optionsList[0].option = req.body.q5o1;
-                item.questions[4].optionsList[1].option = req.body.q5o2;
-                item.questions[4].optionsList[2].option = req.body.q5o3;
-                item.questions[4].optionsList[3].option = req.body.q5o4;
-                item.questions[4].optionsList[0].save();
-                item.questions[4].optionsList[1].save();
-                item.questions[4].optionsList[2].save();
-                item.questions[4].optionsList[3].save();
-            }
-            item.questions[0].save();
-            item.questions[1].save();
-            item.questions[2].save();
-            item.questions[3].save();
-            item.questions[4].save();
-            item.save();
-            res.redirect('/survey');
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.ProcessEditSurvey = ProcessEditSurvey;
 function DisplaySurveyResponse(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
