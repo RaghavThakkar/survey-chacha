@@ -14,4 +14,5 @@ router.get('/add', Util_1.AuthGuard, surveyController_1.CreateSurvey);
 router.get('/delete/:id', Util_1.AuthGuard, surveyController_1.DeleteSurvey);
 router.get('/response/:id', Util_1.AuthGuard, surveyController_1.DisplaySurveyResponse);
 router.get('/response/export/:id', Util_1.AuthGuard, surveyController_1.ExportSurveyResponse);
+router.get('/response/analytics/:id', Util_1.AuthGuard, surveyController_1.AnalyticsSurveyResponse);
 //# sourceMappingURL=surveyRoute.js.map

@@ -10,7 +10,8 @@ import {
 
   DisplayThankYou,
   DisplaySurveyResponse,
-  ExportSurveyResponse
+  ExportSurveyResponse,
+  AnalyticsSurveyResponse
 
 
 } from '../Controllers/surveyController';
@@ -33,4 +34,4 @@ router.get('/response/:id', AuthGuard, DisplaySurveyResponse);
 
 //export
 router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
-//router.get('/response/analytics/:id', AuthGuard, AnalyticsSurveyResponse);
+router.get('/response/analytics/:id', AuthGuard, AnalyticsSurveyResponse);
