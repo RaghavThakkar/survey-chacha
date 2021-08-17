@@ -4,10 +4,10 @@ import express from 'express';
 import {
   DisplaySurvey,
   CreateSurvey,
-
+  ProcessTakeSurvey,
   DeleteSurvey,
-
-
+  TakeSurvey,
+  ProcessSurvey,
   DisplayThankYou,
   EditSurvey,
   ProcessEditSurvey,
@@ -24,15 +24,15 @@ export default router;
 router.get('/', DisplaySurvey);
 router.get('/thanks', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
-//router.post('/add', AuthGuard, ProcessSurvey);
+router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
 router.get('/edit/:id', AuthGuard, EditSurvey);
 router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
-//router.get('/take/:id', TakeSurvey);
-//router.post('/take/:id', ProcessTakeSurvey);
+router.get('/take/:id', TakeSurvey);
+router.post('/take/:id', ProcessTakeSurvey);
 
 router.get('/response/:id', AuthGuard, DisplaySurveyResponse);
-//router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
+router.post('/response/:id', AuthGuard, ProcessTakeSurvey);
 
 //export
 router.get('/response/export/:id', AuthGuard, ExportSurveyResponse);
