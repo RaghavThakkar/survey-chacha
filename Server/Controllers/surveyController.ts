@@ -237,4 +237,45 @@ const makeCsvFile = (data: any, res: any) => {
 
 
 
+export async function DisplayAnalytics(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    let id = req.params.id;
+    const responses = await SurveyResponse.find({ survey: objectId(id) })
+      .populate(
+        {
+          path: 'survey',
+          model: 'Survey',
+          populate: {
+            path: 'questions',
+            model: 'Question',
+            populate: {
+              path: 'optionsList',
+              model: 'Option',
+
+            }
+          }
+        })
+      .populate({
+        path: 'ownerId',
+        model: 'User',
+      })
+      .lean()
+      .exec();
+
+    if (responses[0].survey.type === "1") {
+      let finalData = [0, 0];
+
+    } else {
+      let finalData = [0, 0, 0, 0, 0];
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
 

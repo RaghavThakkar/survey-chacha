@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const SurveyResponse_1 = __importDefault(require("../Models/SurveyResponse"));
 var chunk = require('lodash.chunk');
@@ -209,4 +209,41 @@ const makeCsvFile = (data, res) => {
         res.download('./Client/Assets/csv/data.csv');
     });
 };
+function DisplayAnalytics(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            const responses = yield SurveyResponse_1.default.find({ survey: Util_1.objectId(id) })
+                .populate({
+                path: 'survey',
+                model: 'Survey',
+                populate: {
+                    path: 'questions',
+                    model: 'Question',
+                    populate: {
+                        path: 'optionsList',
+                        model: 'Option',
+                    }
+                }
+            })
+                .populate({
+                path: 'ownerId',
+                model: 'User',
+            })
+                .lean()
+                .exec();
+            if (responses[0].survey.type === "1") {
+                let finalData = [0, 0];
+            }
+            else {
+                let finalData = [0, 0, 0, 0, 0];
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayAnalytics = DisplayAnalytics;
 //# sourceMappingURL=surveyController.js.map
