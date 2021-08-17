@@ -12,7 +12,7 @@ import {
 
   DisplaySurveyResponse,
   ExportSurveyResponse,
-  ProcessSurvey
+
 
 } from '../Controllers/surveyController';
 import { AuthGuard } from '../Util';
@@ -23,7 +23,7 @@ export default router;
 router.get('/', DisplaySurvey);
 router.get('/thanks', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
-router.post('/add', AuthGuard, ProcessSurvey);
+//router.post('/add', AuthGuard, ProcessSurvey);
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
 //router.get('/edit/:id', AuthGuard, EditSurvey);
 //router.post('/edit/:id', AuthGuard, ProcessEditSurvey);
