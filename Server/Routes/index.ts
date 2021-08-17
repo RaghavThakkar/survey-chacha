@@ -6,7 +6,7 @@ export default router;
 import mongoose from 'mongoose';
 
 // define the book model
-import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessContactPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
+import { DisplayContactPage, DisplayAboutPage, DisplayHomePage, DisplayLoginPage, DisplayRegisterPage, ProcessContactPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
 
 //
 

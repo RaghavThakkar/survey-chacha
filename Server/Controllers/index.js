@@ -3,19 +3,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessContactPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessContactPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayHomePage = exports.DisplayAboutPage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const user_1 = __importDefault(require("../Models/user"));
 const contact_1 = __importDefault(require("../Models/contact"));
 const Util_1 = require("../Util");
-function DisplayHomePage(req, res, next) {
-    res.render('content/index', { title: 'Home', page: 'home', displayName: Util_1.UserDisplayName(req) });
-}
-exports.DisplayHomePage = DisplayHomePage;
 function DisplayAboutPage(req, res, next) {
     res.render('content/about', { title: 'About Us', page: 'about', displayName: Util_1.UserDisplayName(req) });
 }
 exports.DisplayAboutPage = DisplayAboutPage;
+function DisplayHomePage(req, res, next) {
+    res.render('content/index', { title: 'Home', page: 'home', displayName: Util_1.UserDisplayName(req) });
+}
+exports.DisplayHomePage = DisplayHomePage;
 function DisplayProjectPage(req, res, next) {
     res.render('index', { title: 'Our Projects', page: 'projects', displayName: Util_1.UserDisplayName(req) });
 }

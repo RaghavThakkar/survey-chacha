@@ -9,12 +9,14 @@ import Contact from '../Models/contact';
 import { UserDisplayName } from '../Util';
 
 //
-export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
-    res.render('content/index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
-}
+
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {
     res.render('content/about', { title: 'About Us', page: 'about', displayName: UserDisplayName(req) });
+}
+
+export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
+    res.render('content/index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
 
 export function DisplayProjectPage(req: Request, res: Response, next: NextFunction): void {
