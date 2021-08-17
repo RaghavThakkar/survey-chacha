@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
+exports.DisplayAnalytics = exports.ExportSurveyResponse = exports.DisplaySurveyResponse = exports.ProcessEditSurvey = exports.EditSurvey = exports.DeleteSurvey = exports.ProcessTakeSurvey = exports.TakeSurvey = exports.DisplayThankYou = exports.ProcessDF = exports.DF = exports.ProcessSurvey = exports.CreateSurvey = exports.DisplaySurvey = void 0;
 const Survey_1 = __importDefault(require("../Models/Survey"));
 const Option_1 = __importDefault(require("../Models/Option"));
 const moment_1 = __importDefault(require("moment"));
@@ -206,6 +206,45 @@ function ProcessSurvey(req, res, next) {
     });
 }
 exports.ProcessSurvey = ProcessSurvey;
+function DF(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DF = DF;
+function ProcessDF(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(req.body);
+            console.log(req.body['q1']);
+            console.log(req.body['q2']);
+            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ProcessDF = ProcessDF;
+function DisplayThankYou(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayThankYou = DisplayThankYou;
 function TakeSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -262,45 +301,6 @@ function ProcessTakeSurvey(req, res, next) {
     });
 }
 exports.ProcessTakeSurvey = ProcessTakeSurvey;
-function DF(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.DF = DF;
-function ProcessDF(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            console.log(req.body);
-            console.log(req.body['q1']);
-            console.log(req.body['q2']);
-            res.render('content/df', { title: 'Create Survey', page: 'index', displayName: Util_1.UserDisplayName(req) });
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.ProcessDF = ProcessDF;
-function DisplayThankYou(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: Util_1.UserDisplayName(req) });
-        }
-        catch (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-}
-exports.DisplayThankYou = DisplayThankYou;
 function DeleteSurvey(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

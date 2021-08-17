@@ -240,6 +240,36 @@ export async function ProcessSurvey(req: Request, res: Response, next: NextFunct
 
 
 }
+
+export async function DF(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
+
+export async function ProcessDF(req: Request, res: Response, next: NextFunction) {
+  try {
+    console.log(req.body);
+    console.log(req.body['q1']);
+    console.log(req.body['q2']);
+    res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
+
+export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
+  } catch (err) {
+    console.error(err);
+    res.end(err);
+  }
+}
 export async function TakeSurvey(req: Request, res: Response, next: NextFunction) {
   try {
 
@@ -298,38 +328,6 @@ export async function ProcessTakeSurvey(req: Request, res: Response, next: NextF
     res.end(err);
   }
 }
-export async function DF(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
-  } catch (err) {
-    console.error(err);
-    res.end(err);
-  }
-}
-
-export async function ProcessDF(req: Request, res: Response, next: NextFunction) {
-  try {
-    console.log(req.body);
-    console.log(req.body['q1']);
-    console.log(req.body['q2']);
-    res.render('content/df', { title: 'Create Survey', page: 'index', displayName: UserDisplayName(req) });
-  } catch (err) {
-    console.error(err);
-    res.end(err);
-  }
-}
-
-export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.render('survey/thankyou', { title: 'Thank you', page: 'index', displayName: UserDisplayName(req) });
-  } catch (err) {
-    console.error(err);
-    res.end(err);
-  }
-}
-
-
-
 export async function DeleteSurvey(req: Request, res: Response, next: NextFunction) {
   try {
     let id = req.params.id;
