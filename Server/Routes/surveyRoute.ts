@@ -7,7 +7,7 @@ import {
 
   DeleteSurvey,
 
-  ProcessSurvey,
+
   DisplayThankYou,
   DisplaySurveyResponse,
   ExportSurveyResponse
@@ -22,7 +22,7 @@ export default router;
 router.get('/', DisplaySurvey);
 router.get('/thanks', DisplayThankYou);
 router.get('/add', AuthGuard, CreateSurvey);
-router.post('/add', AuthGuard, ProcessSurvey);
+
 router.get('/delete/:id', AuthGuard, DeleteSurvey);
 
 //router.get('/take/:id', TakeSurvey);
