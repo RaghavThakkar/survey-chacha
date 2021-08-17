@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
+//database
 import mongoose from 'mongoose';
 
 // define the book model
@@ -12,7 +13,10 @@ import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage
 /* GET home page. wildcard */
 router.get('/', DisplayHomePage);
 
+
+//contact page
 router.get('/contact', DisplayContactPage);
+//process contact page
 router.post('/contact', ProcessContactPage);
 router.get('/about', DisplayAboutPage);
 //module.exports = router;
